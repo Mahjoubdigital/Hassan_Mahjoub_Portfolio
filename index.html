@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" data-lang="es">
-<head><base href="https://d16ilfvy4mv02r.cloudfront.net/workspaces/6wEshbXsfA7NFt9d7SmisptP9oS0BE8F/26b0820a-05a7-42b6-8f7e-c9e1bdb8abdb/files/">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title data-i18n="page_title">Hassan Mahjoub – Diseñador Web WordPress & SEO</title>
@@ -1146,12 +1146,25 @@
     <div class="modal-body" id="modalBody"></div>
     <div class="modal-actions">
       <a href="#contacto" class="btn-primary" id="modalCta"><i class="fas fa-paper-plane"></i>&nbsp; <span data-i18n="modal_contact_cta">Solicitar presupuesto</span></a>
+      <a href="#" class="btn-outline" id="modalCtaEmail" style="display:none;"><i class="fas fa-envelope"></i>&nbsp; <span data-i18n="modal_send_email">Enviar por Email</span></a>
       <button class="btn-outline" id="modalCloseBtn" data-i18n="modal_close">Cerrar</button>
     </div>
   </div>
 </div>
 
 <script>
+/* ===== SAFETY FALLBACKS ===== */
+  if (typeof window.IntersectionObserver === 'undefined') {
+    window.IntersectionObserver = function (cb, opts) {
+      return {
+        observe: function (el) { setTimeout(function () { cb([{ isIntersecting: true, target: el }]); }, 0); },
+        unobserve: function () {},
+        disconnect: function () {}
+      };
+    };
+  }
+  /* ============================= */
+
 /* =====================================================================
    I18N — Traducciones ES / FR / EN
    ===================================================================== */
@@ -1229,7 +1242,16 @@ const I18N = {
     plan3_f8: "Capacitación y soporte prioritario",
     plan_badge_popular: "Más Popular",
     plan_cta: "Contratar",
-    pricing_note: "Precio orientativo. El presupuesto final se ajusta a tu proyecto.",
+    pricing_note: "Precio orientativo. El presupuesto final se ajusta a tu proyecto.", 
+    modal_send_wa: "Enviar por WhatsApp",
+    modal_send_email: "Enviar por Email",
+    modal_send_subject_service: "Solicitud de servicio",
+    modal_send_subject_sector: "Solicitud para mi sector",
+    modal_msg_intro: "Hola Hassan, estoy interesado/a en tu servicio de",
+    modal_msg_features_title: "Lo que más me interesa:",
+    modal_msg_features_seo: "Por qué el SEO Local es importante para mí:",
+    modal_msg_why_title: "Por qué me interesa:",
+    modal_msg_thanks: "Gracias, espero tu respuesta. Saludos,", 
     section_catalogo_tag: "Catálogo Web",
     section_catalogo_title: "Sectores que trabajamos",
     section_catalogo_sub: "Diseños especializados para cada industria y tipo de negocio. Haz clic en cualquier sector para ver los detalles.",
@@ -1299,9 +1321,10 @@ const I18N = {
     asst_menu_quote_again: "📝 Solicitar otro presupuesto",
     asst_menu_back: "⬅️ Volver al menú",
     modal_close: "Cerrar",
+    svc_section_desc: "Descripción detallada de lo que se hace:",
     modal_contact_cta: "Solicitar presupuesto",
-    modal_section_includes: "Qué incluye:",
-    modal_section_why: "Por qué es importante:",
+    modal_section_includes: "Entregables concretos:",
+    modal_section_why: "Beneficios:",
     modal_section_features: "Funcionalidades del sector:",
     modal_section_seo: "SEO Local para este sector:",
     svc_wordpress_long: "Diseño y desarrollo completo de tu sitio web en WordPress, el CMS más usado del mundo. Pensado para negocios que necesitan una web profesional, fácil de gestionar y preparada para posicionar en Google desde el día uno.",
@@ -1398,7 +1421,16 @@ const I18N = {
     plan3_f8: "Formation et support prioritaire",
     plan_badge_popular: "Le plus populaire",
     plan_cta: "Commander",
-    pricing_note: "Prix indicatif. Le devis final est ajusté à votre projet.",
+    pricing_note: "Prix indicatif. Le devis final est ajusté à votre projet.", 
+    modal_send_wa: "Envoyer via WhatsApp",
+    modal_send_email: "Envoyer par Email",
+    modal_send_subject_service: "Demande de service",
+    modal_send_subject_sector: "Demande pour mon secteur",
+    modal_msg_intro: "Bonjour Hassan, je suis intéressé(e) par votre service de",
+    modal_msg_features_title: "Ce qui m’intéresse le plus :",
+    modal_msg_features_seo: "Pourquoi le SEO Local est important pour moi :",
+    modal_msg_why_title: "Pourquoi cela m’intéresse :",
+    modal_msg_thanks: "Merci, j’attends votre réponse. Cordialement,", 
     section_catalogo_tag: "Catalogue Web",
     section_catalogo_title: "Les secteurs que nous travaillons",
     section_catalogo_sub: "Designs spécialisés pour chaque industrie. Cliquez sur un secteur pour voir les détails.",
@@ -1469,8 +1501,8 @@ const I18N = {
     asst_menu_back: "⬅️ Retour au menu",
     modal_close: "Fermer",
     modal_contact_cta: "Demander un devis",
-    modal_section_includes: "Ce que cela inclut :",
-    modal_section_why: "Pourquoi c'est important :",
+    modal_section_includes: "Livrables concrets :",
+    modal_section_why: "Bénéfices :",
     modal_section_features: "Fonctionnalités pour ce secteur :",
     modal_section_seo: "SEO Local pour ce secteur :",
     svc_wordpress_long: "Conception et développement complet de votre site sous WordPress, le CMS le plus utilisé au monde. Idéal pour les entreprises ayant besoin d'un site professionnel, facile à gérer et prêt à se positionner sur Google dès le premier jour.",
@@ -1567,7 +1599,16 @@ const I18N = {
     plan3_f8: "Training and priority support",
     plan_badge_popular: "Most Popular",
     plan_cta: "Get started",
-    pricing_note: "Starting price. Final quote is tailored to your project.",
+    pricing_note: "Starting price. Final quote is tailored to your project.", 
+    modal_send_wa: "Send via WhatsApp",
+    modal_send_email: "Send by Email",
+    modal_send_subject_service: "Service request",
+    modal_send_subject_sector: "Request for my sector",
+    modal_msg_intro: "Hi Hassan, I am interested in your",
+    modal_msg_features_title: "What interests me the most:",
+    modal_msg_features_seo: "Why Local SEO matters for me:",
+    modal_msg_why_title: "Why it matters to me:",
+    modal_msg_thanks: "Thanks, I await your reply. Best regards,", 
     section_catalogo_tag: "Web Catalog",
     section_catalogo_title: "Industries we work with",
     section_catalogo_sub: "Specialized designs for every industry. Click any sector to see details.",
@@ -1638,8 +1679,8 @@ const I18N = {
     asst_menu_back: "⬅️ Back to menu",
     modal_close: "Close",
     modal_contact_cta: "Request a quote",
-    modal_section_includes: "What it includes:",
-    modal_section_why: "Why it matters:",
+    modal_section_includes: "Concrete deliverables:",
+    modal_section_why: "Benefits:",
     modal_section_features: "Features for this sector:",
     modal_section_seo: "Local SEO for this sector:",
     svc_wordpress_long: "Full design and development of your WordPress site, the most-used CMS in the world. Ideal for businesses that need a professional, easy-to-manage website ready to rank on Google from day one.",
@@ -2043,6 +2084,61 @@ const SECTOR_DETAILS = {
   }
 };
 
+
+/* =====================================================================
+   Build pre-filled "service request summary" message
+   ===================================================================== */
+  function buildWaMsg(type, id, lang) {
+    const L = (I18N[lang] || I18N.es);
+    const lines = [];
+    let subjectExtra = '';
+    let title = '';
+
+    if (type === 'service') {
+      const data = (SERVICE_DETAILS[id] || {})[lang] || (SERVICE_DETAILS[id] || {}).es || {};
+      title = data.title || id;
+      subjectExtra = ' · ' + title;
+      lines.push(L.modal_msg_intro + ' ' + title + '.');
+      if (Array.isArray(data.includes) && data.includes.length) {
+        lines.push('');
+        lines.push(L.modal_msg_features_title);
+        data.includes.slice(0, 5).forEach(function (it) { lines.push('• ' + it); });
+      }
+      if (Array.isArray(data.why) && data.why.length) {
+        lines.push('');
+        lines.push(L.modal_msg_why_title);
+        data.why.slice(0, 3).forEach(function (it) { lines.push('• ' + it); });
+      }
+    } else if (type === 'sector') {
+      const data = (SECTOR_DETAILS[id] || {})[lang] || (SECTOR_DETAILS[id] || {}).es || {};
+      title = data.title || id;
+      subjectExtra = ' · ' + title;
+      var starterEs = (lang === 'fr')
+        ? 'Bonjour Hassan, je suis intéressé(e) par votre conception web + SEO Local pour mon activité dans le secteur : ' + title + '.'
+        : (lang === 'en')
+          ? 'Hi Hassan, I am interested in your web design + Local SEO service for my business in the ' + title + ' sector.'
+          : 'Hola Hassan, estoy interesado/a en tu servicio de diseño web + SEO Local para mi negocio del sector: ' + title + '.';
+      lines.push(starterEs);
+      if (Array.isArray(data.features) && data.features.length) {
+        lines.push('');
+        lines.push(L.modal_msg_features_title);
+        data.features.slice(0, 5).forEach(function (it) { lines.push('• ' + it); });
+      }
+      if (Array.isArray(data.seo) && data.seo.length) {
+        lines.push('');
+        lines.push(L.modal_msg_features_seo);
+        data.seo.slice(0, 3).forEach(function (it) { lines.push('• ' + it); });
+      }
+    }
+
+    lines.push('');
+    lines.push(L.modal_msg_thanks);
+    return {
+      text: lines.join('\n'),
+      subject: ((type === 'sector') ? L.modal_send_subject_sector : L.modal_send_subject_service) + subjectExtra + ' · Mahjoub.click'
+    };
+  }
+
 /* =====================================================================
    CURRENT LANGUAGE + i18n APPLIER
    ===================================================================== */
@@ -2221,6 +2317,7 @@ function openServiceModal(serviceId) {
   if (closeX) closeX.addEventListener('click', closeModal);
 
   modalBody.innerHTML = `
+    <div class="modal-section-title">${t('svc_section_desc')}</div>
     <p>${I18N[lang][longKey] || ''}</p>
     <div class="modal-section-title">${t('modal_section_includes')}</div>
     <ul class="modal-features">
@@ -2234,6 +2331,21 @@ function openServiceModal(serviceId) {
   modalOverlay.classList.add('open');
   modalOverlay.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+
+  // Wire WA + Email CTAs with pre-filled summary (service modal)
+  var waMsg = buildWaMsg('service', serviceId, (typeof currentLang !== 'undefined' ? currentLang : 'es'));
+  var waLink = document.getElementById('modalCta');
+  if (waLink) {
+    waLink.href = 'https://wa.me/212690157092?text=' + encodeURIComponent(waMsg.text);
+    waLink.target = '_blank';
+    waLink.rel = 'noopener';
+    waLink.onclick = null;
+  }
+  var emLink = document.getElementById('modalCtaEmail');
+  if (emLink) {
+    emLink.style.display = '';
+    emLink.href = 'mailto:contact@mahjoub.click?subject=' + encodeURIComponent(waMsg.subject) + '&body=' + encodeURIComponent(waMsg.text);
+  }
 }
 
 function openSectorModal(sectorId) {
@@ -2272,6 +2384,39 @@ function openSectorModal(sectorId) {
   modalOverlay.classList.add('open');
   modalOverlay.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
+
+  // Wire WA + Email CTAs with pre-filled summary (sector modal).
+  // On click of the primary CTA: pre-fills the contact form, opens WhatsApp,
+  // and closes the modal.
+  var waMsg = buildWaMsg('sector', sectorId, (typeof currentLang !== 'undefined' ? currentLang : 'es'));
+  var waLink = document.getElementById('modalCta');
+  if (waLink) {
+    waLink.href = '#contacto';
+    waLink.target = '';
+    waLink.rel = '';
+    waLink.onclick = function (e) {
+      e.preventDefault();
+      try {
+        var form = document.getElementById('contactForm');
+        if (form) {
+          var langNow = (typeof currentLang !== 'undefined' ? currentLang : 'es');
+          var subClean = waMsg.subject.replace(/.*·\s*/, '');
+          var prefix = (langNow === 'fr') ? 'Demande pour mon secteur : '
+                      : (langNow === 'en') ? 'Request for my sector: '
+                      : 'Solicitud para mi sector: ';
+          form.subject.value = prefix + subClean;
+          form.message.value = waMsg.text;
+        }
+      } catch (_) {}
+      window.open('https://wa.me/212690157092?text=' + encodeURIComponent(waMsg.text), '_blank', 'noopener');
+      closeModal();
+    };
+  }
+  var emLink = document.getElementById('modalCtaEmail');
+  if (emLink) {
+    emLink.style.display = '';
+    emLink.href = 'mailto:contact@mahjoub.click?subject=' + encodeURIComponent(waMsg.subject) + '&body=' + encodeURIComponent(waMsg.text);
+  }
 }
 
 // Delegated click handlers for service + sector modals
