@@ -30,26 +30,50 @@
 
     /* ===== LANGUAGE SWITCHER ===== */
     .lang-switcher {
-      display:inline-flex; align-items:center;
+      position:relative;
+      display:inline-block;
+    }
+    .lang-current {
+      display:inline-flex; align-items:center; gap:8px;
       background:rgba(108,99,255,.1);
       border:1px solid rgba(108,99,255,.25);
-      border-radius:50px; padding:4px;
-      gap:2px;
-    }
-    .lang-switcher button {
-      background:transparent; border:none;
-      color:var(--muted); font-family:inherit;
-      font-size:.78rem; font-weight:600;
-      padding:6px 12px; border-radius:50px;
+      border-radius:50px; padding:7px 14px;
+      color:var(--light); font-family:inherit;
+      font-size:.8rem; font-weight:600;
       cursor:pointer; transition:.25s;
       letter-spacing:.5px;
     }
-    .lang-switcher button:hover { color:var(--light); }
-    .lang-switcher button.active {
+    .lang-current:hover { border-color:rgba(108,99,255,.5); background:rgba(108,99,255,.18); }
+    .lang-flag { font-size:1.05rem; line-height:1; }
+    .lang-caret { font-size:.65rem; color:var(--muted); transition:transform .25s; }
+    .lang-switcher.open .lang-caret { transform:rotate(180deg); }
+    .lang-dropdown {
+      position:absolute; top:calc(100% + 10px); right:0;
+      min-width:175px;
+      background:var(--dark3);
+      border:1px solid rgba(108,99,255,.25);
+      border-radius:14px; padding:6px;
+      box-shadow:0 15px 40px rgba(0,0,0,.5);
+      opacity:0; visibility:hidden; transform:translateY(-8px);
+      transition:opacity .22s, transform .22s, visibility .22s;
+      z-index:200;
+    }
+    .lang-switcher.open .lang-dropdown { opacity:1; visibility:visible; transform:translateY(0); }
+    .lang-option {
+      display:flex; align-items:center; gap:10px; width:100%;
+      background:transparent; border:none;
+      color:var(--text); font-family:inherit;
+      font-size:.85rem; font-weight:500; text-align:left;
+      padding:10px 12px; border-radius:9px;
+      cursor:pointer; transition:.2s;
+    }
+    .lang-option:hover { background:rgba(108,99,255,.12); color:var(--light); }
+    .lang-option.active {
       background:linear-gradient(135deg,var(--primary),var(--primary-dark));
       color:#fff;
       box-shadow:0 3px 10px rgba(108,99,255,.35);
     }
+    .lang-option .lang-flag { font-size:1.1rem; }
     .nav-cta-wrap { display:flex; align-items:center; gap:14px; }
 
     /* ===== NAVBAR ===== */
@@ -281,62 +305,88 @@
     #precios { background:var(--dark2); }
     .pricing-grid {
       max-width:1100px; margin:0 auto;
-      display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
-      align-items:start;
+      display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
+      align-items:stretch;
     }
     .price-card {
       background:var(--card);
-      border:1px solid rgba(255,255,255,.06);
-      border-radius:24px; padding:40px 30px;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:24px; padding:44px 32px;
       text-align:center; position:relative;
-      transition:transform .3s;
+      display:flex; flex-direction:column;
+      transition:transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .price-card:hover {
+      transform:translateY(-8px);
+      border-color:rgba(108,99,255,.35);
+      box-shadow:0 20px 45px rgba(0,0,0,.35);
     }
     .price-card.featured {
-      background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background:linear-gradient(160deg, var(--primary), var(--primary-dark));
       border-color:transparent;
-      transform:scale(1.04);
-      box-shadow:0 25px 60px rgba(108,99,255,.4);
+      transform:scale(1.05);
+      box-shadow:0 30px 65px rgba(108,99,255,.45);
     }
-    .price-card:hover { transform:translateY(-6px); }
-    .price-card.featured:hover { transform:scale(1.04) translateY(-6px); }
+    .price-card.featured:hover { transform:scale(1.05) translateY(-8px); }
     .price-badge {
-      position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+      position:absolute; top:-15px; left:50%; transform:translateX(-50%);
       background:var(--accent); color:#fff;
-      padding:5px 20px; border-radius:50px;
-      font-size:.75rem; font-weight:700;
+      padding:6px 22px; border-radius:50px;
+      font-size:.72rem; font-weight:700; letter-spacing:.5px;
+      box-shadow:0 6px 16px rgba(255,107,107,.4);
+      white-space:nowrap;
     }
     .plan-icon {
-      width:56px; height:56px; border-radius:16px;
-      margin: 0 auto 18px;
+      width:60px; height:60px; border-radius:18px;
+      margin: 0 auto 20px;
       background:linear-gradient(135deg, var(--primary), var(--primary-dark));
       display:flex; align-items:center; justify-content:center;
-      font-size:1.4rem; color:#fff;
-      box-shadow:0 8px 20px rgba(108,99,255,.3);
+      font-size:1.5rem; color:#fff;
+      box-shadow:0 10px 24px rgba(108,99,255,.35);
     }
     .price-card.featured .plan-icon {
       background:rgba(255,255,255,.18);
       box-shadow:none;
     }
-    .plan-name { font-size:1.05rem; font-weight:700; color:var(--light); margin-bottom:14px; }
+    .plan-name { font-size:1.15rem; font-weight:800; color:var(--light); margin-bottom:6px; }
     .price-card.featured .plan-name { color:#fff; }
-    .price-amount { font-size:2.6rem; font-weight:900; color:var(--light); line-height:1; }
-    .price-card.featured .price-amount { color:#fff; }
-    .price-period { font-size:.8rem; color:var(--muted); margin-bottom:24px; margin-top:6px;}
-    .price-card.featured .price-period { color:rgba(255,255,255,.7); }
-    .price-features { list-style:none; text-align:left; margin-bottom:30px; }
+    .plan-tagline { font-size:.82rem; color:var(--muted); margin-bottom:22px; min-height:20px; }
+    .price-card.featured .plan-tagline { color:rgba(255,255,255,.85); }
+    .price-quote {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(108,99,255,.1);
+      border:1px solid rgba(108,99,255,.25);
+      border-radius:50px; padding:8px 18px;
+      font-size:.8rem; font-weight:700; color:var(--light);
+      margin:0 auto 26px;
+    }
+    .price-card.featured .price-quote {
+      background:rgba(255,255,255,.15);
+      border-color:rgba(255,255,255,.25);
+      color:#fff;
+    }
+    .price-quote i { color:var(--primary); font-size:.75rem; }
+    .price-card.featured .price-quote i { color:#fff; }
+    .price-features { list-style:none; text-align:left; margin-bottom:28px; flex-grow:1; }
     .price-features li {
-      padding:9px 0; border-bottom:1px solid rgba(255,255,255,.05);
-      display:flex; align-items:flex-start; gap:10px;
-      font-size:.86rem; color:var(--text); line-height:1.5;
+      padding:10px 0; border-bottom:1px solid rgba(255,255,255,.05);
+      display:flex; align-items:flex-start; gap:12px;
+      font-size:.87rem; color:var(--text); line-height:1.5;
     }
-    .price-card.featured .price-features li { color:rgba(255,255,255,.9); border-color:rgba(255,255,255,.1); }
-    .price-features li i { color:var(--primary); font-size:.78rem; margin-top:4px;flex-shrink:0; }
-    .price-card.featured .price-features li i { color:#fff; }
+    .price-features li:last-child { border-bottom:none; }
+    .price-card.featured .price-features li { color:rgba(255,255,255,.92); border-color:rgba(255,255,255,.1); }
+    .price-features li i {
+      color:#fff; font-size:.65rem; flex-shrink:0; margin-top:3px;
+      width:18px; height:18px; border-radius:50%;
+      background:var(--primary);
+      display:flex; align-items:center; justify-content:center;
+    }
+    .price-card.featured .price-features li i { color:var(--primary); background:#fff; }
     .price-note {
-      font-size:.76rem; color:var(--muted); margin-top:18px;
-      padding:0 10px; line-height:1.5;
+      font-size:.76rem; color:var(--muted); margin-top:6px;
+      padding:0 6px; line-height:1.5;
     }
-    .price-card.featured .price-note { color:rgba(255,255,255,.7); }
+    .price-card.featured .price-note { color:rgba(255,255,255,.75); }
 
     /* ===== CATALOG ===== */
     #catalogo { background:var(--dark); }
@@ -686,6 +736,44 @@
       border-bottom:1px solid rgba(255,255,255,.05);
       z-index:99;
     }
+
+    /* Language switcher inside mobile menu */
+    .lang-switcher-mobile {
+      display:none;
+      order:-1;
+      gap:10px;
+      padding:2px 4px 16px;
+      margin-bottom:6px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      overflow-x:auto;
+      overflow-y:hidden;
+      -webkit-overflow-scrolling:touch;
+      scroll-snap-type:x proximity;
+      scrollbar-width:none;
+    }
+    .lang-switcher-mobile::-webkit-scrollbar { display:none; }
+    .lang-switcher-mobile .lang-option-m {
+      display:flex; align-items:center; gap:7px;
+      background:rgba(108,99,255,.1);
+      border:1px solid rgba(108,99,255,.25);
+      border-radius:50px; padding:8px 16px;
+      color:var(--muted); font-family:inherit;
+      font-size:.8rem; font-weight:600;
+      cursor:pointer; transition:.25s;
+      flex:0 0 auto;
+      scroll-snap-align:start;
+      white-space:nowrap;
+    }
+    .lang-switcher-mobile .lang-option-m:hover { color:var(--light); }
+    .lang-switcher-mobile .lang-option-m.active {
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#fff; border-color:transparent;
+      box-shadow:0 3px 10px rgba(108,99,255,.35);
+    }
+    @media(max-width:900px) {
+      .lang-switcher { display:none; }
+      .lang-switcher-mobile { display:flex; }
+    }
   </style>
 </head>
 <body>
@@ -695,6 +783,11 @@
   <div class="nav-inner">
     <a href="#inicio" class="logo">Mahjoub.click<span>.</span></a>
     <ul class="nav-links" id="navLinks">
+      <li class="lang-switcher-mobile" id="langSwitcherMobile">
+        <button data-set-lang="es" class="lang-option-m active" type="button"><span class="lang-flag">🇪🇸</span> ES</button>
+        <button data-set-lang="fr" class="lang-option-m" type="button"><span class="lang-flag">🇫🇷</span> FR</button>
+        <button data-set-lang="en" class="lang-option-m" type="button"><span class="lang-flag">🇬🇧</span> EN</button>
+      </li>
       <li><a href="#inicio" data-i18n="nav_inicio">Inicio</a></li>
       <li><a href="#servicios" data-i18n="nav_servicios">Servicios</a></li>
       <li><a href="#catalogo" data-i18n="nav_catalogo">Catálogo</a></li>
@@ -703,9 +796,16 @@
     </ul>
     <div class="nav-cta-wrap">
       <div class="lang-switcher" id="langSwitcher">
-        <button data-set-lang="es" class="active" type="button">ES</button>
-        <button data-set-lang="fr" type="button">FR</button>
-        <button data-set-lang="en" type="button">EN</button>
+        <button type="button" class="lang-current" id="langCurrentBtn" aria-haspopup="true" aria-expanded="false">
+          <span class="lang-flag" id="langCurrentFlag">🇪🇸</span>
+          <span id="langCurrentCode">ES</span>
+          <i class="fas fa-chevron-down lang-caret"></i>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="menu">
+          <button data-set-lang="es" class="lang-option active" type="button" role="menuitem"><span class="lang-flag">🇪🇸</span> Español</button>
+          <button data-set-lang="fr" class="lang-option" type="button" role="menuitem"><span class="lang-flag">🇫🇷</span> Français</button>
+          <button data-set-lang="en" class="lang-option" type="button" role="menuitem"><span class="lang-flag">🇬🇧</span> English</button>
+        </div>
       </div>
       <a href="https://wa.me/212690157092" class="nav-wa" target="_blank" rel="noopener">
         <i class="fab fa-whatsapp"></i> <span data-i18n="nav_cta">Solicitar presupuesto</span>
@@ -840,8 +940,8 @@
     <div class="price-card reveal">
       <div class="plan-icon"><i class="fas fa-seedling"></i></div>
       <div class="plan-name" data-i18n="plan1_name">Pack Esencial</div>
-      <div class="price-amount" data-i18n="plan1_price">€</div>
-      <div class="price-period" data-i18n="plan1_period">pago único</div>
+      <div class="plan-tagline" data-i18n="plan1_tagline">Ideal para arrancar tu presencia online</div>
+      <div class="price-quote"><i class="fas fa-comment-dollar"></i> <span data-i18n="price_quote_label">Presupuesto a medida</span></div>
       <ul class="price-features">
         <li><i class="fas fa-check"></i> <span data-i18n="plan1_f1">Landing page de una sola página</span></li>
         <li><i class="fas fa-check"></i> <span data-i18n="plan1_f2">Diseño responsive (móvil y escritorio)</span></li>
@@ -851,14 +951,14 @@
         <li><i class="fas fa-check"></i> <span data-i18n="plan1_f6">Entrega en 5 días laborables</span></li>
       </ul>
       <a href="#contacto" class="btn-outline" style="width:100%; text-align:center; display:block; border-radius:12px; padding:14px;" data-i18n="plan_cta">Contratar</a>
-      <div class="price-note" data-i18n="pricing_note">Precio orientativo. El presupuesto final se ajusta a tu proyecto.</div>
+      <div class="price-note" data-i18n="pricing_note">El presupuesto se ajusta a las necesidades de tu proyecto.</div>
     </div>
     <div class="price-card featured reveal">
       <div class="price-badge" data-i18n="plan_badge_popular">Más Popular</div>
       <div class="plan-icon"><i class="fas fa-bolt"></i></div>
       <div class="plan-name" data-i18n="plan2_name">Pack Profesional</div>
-      <div class="price-amount" data-i18n="plan2_price">690€</div>
-      <div class="price-period" data-i18n="plan2_period">pago único</div>
+      <div class="plan-tagline" data-i18n="plan2_tagline">La opción más elegida por negocios locales</div>
+      <div class="price-quote"><i class="fas fa-comment-dollar"></i> <span data-i18n="price_quote_label">Presupuesto a medida</span></div>
       <ul class="price-features">
         <li><i class="fas fa-check"></i> <span data-i18n="plan2_f1">Web corporativa (3-5 secciones)</span></li>
         <li><i class="fas fa-check"></i> <span data-i18n="plan2_f2">Diseño personalizado a tu marca</span></li>
@@ -870,13 +970,13 @@
         <li><i class="fas fa-check"></i> <span data-i18n="plan2_f8">Entrega en 10-15 días laborables</span></li>
       </ul>
       <a href="#contacto" class="btn-primary" style="width:100%; text-align:center; display:block; border-radius:12px; padding:14px; background:#fff; color:var(--primary);" data-i18n="plan_cta">Contratar</a>
-      <div class="price-note" data-i18n="pricing_note">Precio orientativo. El presupuesto final se ajusta a tu proyecto.</div>
+      <div class="price-note" data-i18n="pricing_note">El presupuesto se ajusta a las necesidades de tu proyecto.</div>
     </div>
     <div class="price-card reveal">
       <div class="plan-icon"><i class="fas fa-crown"></i></div>
       <div class="plan-name" data-i18n="plan3_name">Pack Premium / Integral</div>
-      <div class="price-amount" data-i18n="plan3_price">1.490€</div>
-      <div class="price-period" data-i18n="plan3_period">pago único</div>
+      <div class="plan-tagline" data-i18n="plan3_tagline">Solución completa para llevar tu negocio al siguiente nivel</div>
+      <div class="price-quote"><i class="fas fa-comment-dollar"></i> <span data-i18n="price_quote_label">Presupuesto a medida</span></div>
       <ul class="price-features">
         <li><i class="fas fa-check"></i> <span data-i18n="plan3_f1">Web completa con portfolio o tienda online</span></li>
         <li><i class="fas fa-check"></i> <span data-i18n="plan3_f2">Diseño premium totalmente a medida</span></li>
@@ -888,7 +988,7 @@
         <li><i class="fas fa-check"></i> <span data-i18n="plan3_f8">Capacitación y soporte prioritario</span></li>
       </ul>
       <a href="#contacto" class="btn-outline" style="width:100%; text-align:center; display:block; border-radius:12px; padding:14px;" data-i18n="plan_cta">Contratar</a>
-      <div class="price-note" data-i18n="pricing_note">Precio orientativo. El presupuesto final se ajusta a tu proyecto.</div>
+      <div class="price-note" data-i18n="pricing_note">El presupuesto se ajusta a las necesidades de tu proyecto.</div>
     </div>
   </div>
 </section>
@@ -1207,8 +1307,7 @@ const I18N = {
     section_precios_title: "Planes que se adaptan<br>a tu presupuesto",
     section_precios_sub: "Tres packs de creación web diseñados para lanzar o renovar tu presencia online",
     plan1_name: "Pack Esencial",
-    plan1_price: "",
-    plan1_period: "pago único",
+    plan1_tagline: "Ideal para arrancar tu presencia online",
     plan1_f1: "Landing page de una sola página",
     plan1_f2: "Diseño responsive (móvil y escritorio)",
     plan1_f3: "Formulario de contacto y link a WhatsApp",
@@ -1216,8 +1315,7 @@ const I18N = {
     plan1_f5: "SEO básico on-page y sitemap.xml",
     plan1_f6: "Entrega en 5 días laborables",
     plan2_name: "Pack Profesional",
-    plan2_price: "690€",
-    plan2_period: "pago único",
+    plan2_tagline: "La opción más elegida por negocios locales",
     plan2_f1: "Web corporativa (3-5 secciones)",
     plan2_f2: "Diseño personalizado a tu marca",
     plan2_f3: "WordPress + Elementor",
@@ -1227,8 +1325,7 @@ const I18N = {
     plan2_f7: "Formulario + chatbot de WhatsApp",
     plan2_f8: "Entrega en 10-15 días laborables",
     plan3_name: "Pack Premium / Integral",
-    plan3_price: "1.490€",
-    plan3_period: "pago único",
+    plan3_tagline: "Solución completa para llevar tu negocio al siguiente nivel",
     plan3_f1: "Web completa con portfolio o tienda online",
     plan3_f2: "Diseño premium totalmente a medida",
     plan3_f3: "WordPress + WooCommerce o portfolio",
@@ -1239,7 +1336,8 @@ const I18N = {
     plan3_f8: "Capacitación y soporte prioritario",
     plan_badge_popular: "Más Popular",
     plan_cta: "Contratar",
-    pricing_note: "Precio orientativo. El presupuesto final se ajusta a tu proyecto.", 
+    price_quote_label: "Presupuesto a medida",
+    pricing_note: "El presupuesto se ajusta a las necesidades de tu proyecto.", 
     modal_send_wa: "Enviar por WhatsApp",
     modal_send_email: "Enviar por Email",
     modal_send_subject_service: "Solicitud de servicio",
@@ -1386,8 +1484,7 @@ const I18N = {
     section_precios_title: "Des packs qui s'adaptent<br>à votre budget",
     section_precios_sub: "Trois packs de création web conçus pour lancer ou renouveler votre présence en ligne",
     plan1_name: "Pack Essentiel",
-    plan1_price: "Consultar",
-    plan1_period: "paiement unique",
+    plan1_tagline: "Idéal pour démarrer votre présence en ligne",
     plan1_f1: "Landing page d'une seule page",
     plan1_f2: "Design responsive (mobile et bureau)",
     plan1_f3: "Formulaire de contact + lien WhatsApp",
@@ -1395,8 +1492,7 @@ const I18N = {
     plan1_f5: "SEO on-page de base et sitemap.xml",
     plan1_f6: "Livraison en 5 jours ouvrés",
     plan2_name: "Pack Professionnel",
-    plan2_price: "690€",
-    plan2_period: "paiement unique",
+    plan2_tagline: "L'option la plus choisie par les commerces locaux",
     plan2_f1: "Site corporate (3-5 sections)",
     plan2_f2: "Design personnalisé à votre image",
     plan2_f3: "WordPress + Elementor",
@@ -1406,8 +1502,7 @@ const I18N = {
     plan2_f7: "Formulaire + chatbot WhatsApp",
     plan2_f8: "Livraison en 10-15 jours ouvrés",
     plan3_name: "Pack Premium / Intégral",
-    plan3_price: "1.490€",
-    plan3_period: "paiement unique",
+    plan3_tagline: "Solution complète pour passer au niveau supérieur",
     plan3_f1: "Site complet avec portfolio ou boutique",
     plan3_f2: "Design premium sur mesure",
     plan3_f3: "WordPress + WooCommerce ou portfolio",
@@ -1418,7 +1513,8 @@ const I18N = {
     plan3_f8: "Formation et support prioritaire",
     plan_badge_popular: "Le plus populaire",
     plan_cta: "Commander",
-    pricing_note: "Prix indicatif. Le devis final est ajusté à votre projet.", 
+    price_quote_label: "Devis personnalisé",
+    pricing_note: "Le devis est ajusté aux besoins de votre projet.", 
     modal_send_wa: "Envoyer via WhatsApp",
     modal_send_email: "Envoyer par Email",
     modal_send_subject_service: "Demande de service",
@@ -1564,8 +1660,7 @@ const I18N = {
     section_precios_title: "Plans that fit<br>your budget",
     section_precios_sub: "Three web creation packs designed to launch or renew your online presence",
     plan1_name: "Essentials Pack",
-    plan1_price: "€290",
-    plan1_period: "one-time payment",
+    plan1_tagline: "Perfect for launching your online presence",
     plan1_f1: "One-page landing page",
     plan1_f2: "Responsive design (mobile + desktop)",
     plan1_f3: "Contact form and WhatsApp link",
@@ -1573,8 +1668,7 @@ const I18N = {
     plan1_f5: "Basic on-page SEO & sitemap.xml",
     plan1_f6: "Delivery in 5 working days",
     plan2_name: "Professional Pack",
-    plan2_price: "€690",
-    plan2_period: "one-time payment",
+    plan2_tagline: "The top choice for local businesses",
     plan2_f1: "Corporate website (3–5 sections)",
     plan2_f2: "Custom design tailored to your brand",
     plan2_f3: "WordPress + Elementor",
@@ -1584,8 +1678,7 @@ const I18N = {
     plan2_f7: "Contact form + WhatsApp chatbot",
     plan2_f8: "Delivery in 10–15 working days",
     plan3_name: "Premium / Full Package",
-    plan3_price: "€1,490",
-    plan3_period: "one-time payment",
+    plan3_tagline: "The complete solution to take your business further",
     plan3_f1: "Full website with portfolio or shop",
     plan3_f2: "Premium fully-custom design",
     plan3_f3: "WordPress + WooCommerce or portfolio",
@@ -1596,7 +1689,8 @@ const I18N = {
     plan3_f8: "Training and priority support",
     plan_badge_popular: "Most Popular",
     plan_cta: "Get started",
-    pricing_note: "Starting price. Final quote is tailored to your project.", 
+    price_quote_label: "Custom quote",
+    pricing_note: "The quote is tailored to your project's needs.", 
     modal_send_wa: "Send via WhatsApp",
     modal_send_email: "Send by Email",
     modal_send_subject_service: "Service request",
@@ -2173,6 +2267,12 @@ function applyI18n() {
   document.querySelectorAll('[data-set-lang]').forEach(btn => {
     btn.classList.toggle('active', btn.getAttribute('data-set-lang') === currentLang);
   });
+  // language switcher current flag/code label
+  const LANG_FLAGS = { es: '🇪🇸', fr: '🇫🇷', en: '🇬🇧' };
+  const curFlagEl = document.getElementById('langCurrentFlag');
+  const curCodeEl = document.getElementById('langCurrentCode');
+  if (curFlagEl) curFlagEl.textContent = LANG_FLAGS[currentLang] || '🌐';
+  if (curCodeEl) curCodeEl.textContent = currentLang.toUpperCase();
 }
 
 // Handle language switch clicks (delegated)
@@ -2180,12 +2280,41 @@ document.addEventListener('click', (e) => {
   const btn = e.target.closest('[data-set-lang]');
   if (!btn) return;
   const lang = btn.getAttribute('data-set-lang');
+  const switcherEl = document.getElementById('langSwitcher');
   if (lang && I18N[lang] && lang !== currentLang) {
     currentLang = lang;
     try { localStorage.setItem('mahjoub_lang', lang); } catch(_) {}
     applyI18n();
     // Reset assistant so messages are in the new language
     if (typeof restartConversation === 'function') restartConversation();
+  }
+  if (switcherEl) {
+    switcherEl.classList.remove('open');
+    const toggleBtn = document.getElementById('langCurrentBtn');
+    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+  }
+  // If selected from the mobile menu, close the mobile menu too
+  if (btn.classList.contains('lang-option-m')) {
+    const mobileNav = document.getElementById('navLinks');
+    if (mobileNav) mobileNav.classList.remove('open');
+  }
+});
+
+// Handle dropdown open/close
+document.addEventListener('click', (e) => {
+  const switcherEl = document.getElementById('langSwitcher');
+  const toggleBtn = document.getElementById('langCurrentBtn');
+  if (!switcherEl || !toggleBtn) return;
+  if (toggleBtn.contains(e.target)) {
+    e.stopPropagation();
+    const willOpen = !switcherEl.classList.contains('open');
+    switcherEl.classList.toggle('open', willOpen);
+    toggleBtn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    return;
+  }
+  if (!switcherEl.contains(e.target)) {
+    switcherEl.classList.remove('open');
+    toggleBtn.setAttribute('aria-expanded', 'false');
   }
 });
 
