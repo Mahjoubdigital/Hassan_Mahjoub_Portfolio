@@ -737,32 +737,49 @@
       z-index:99;
     }
 
-    /* Language switcher inside mobile menu */
-    .lang-switcher-mobile {
+    /* Top row inside mobile menu: languages + quote button, side by side */
+    .mobile-top-row {
       display:none;
       order:-1;
-      gap:10px;
-      padding:2px 4px 16px;
-      margin-bottom:6px;
+      align-items:flex-start; gap:10px;
+      padding-bottom:16px; margin-bottom:6px;
       border-bottom:1px solid rgba(255,255,255,.08);
-      overflow-x:auto;
-      overflow-y:hidden;
-      -webkit-overflow-scrolling:touch;
-      scroll-snap-type:x proximity;
-      scrollbar-width:none;
     }
-    .lang-switcher-mobile::-webkit-scrollbar { display:none; }
-    .lang-switcher-mobile .lang-option-m {
-      display:flex; align-items:center; gap:7px;
+    .lang-switcher-mobile {
+      flex:1 1 55%; min-width:0;
+      display:flex; flex-direction:column;
+    }
+    .lang-current-mobile {
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      width:100%;
       background:rgba(108,99,255,.1);
       border:1px solid rgba(108,99,255,.25);
-      border-radius:50px; padding:8px 16px;
-      color:var(--muted); font-family:inherit;
-      font-size:.8rem; font-weight:600;
+      border-radius:50px; padding:10px 12px;
+      color:var(--light); font-family:inherit;
+      font-size:.82rem; font-weight:600;
       cursor:pointer; transition:.25s;
-      flex:0 0 auto;
-      scroll-snap-align:start;
-      white-space:nowrap;
+    }
+    .lang-current-mobile:hover { border-color:rgba(108,99,255,.5); background:rgba(108,99,255,.18); }
+    .lang-current-mobile .lang-caret { font-size:.7rem; color:var(--muted); transition:transform .25s; margin-left:2px; }
+    .lang-switcher-mobile.open .lang-current-mobile .lang-caret { transform:rotate(180deg); }
+    .lang-dropdown-mobile {
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease, opacity .25s ease, margin-top .3s ease;
+      opacity:0; margin-top:0;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    .lang-switcher-mobile.open .lang-dropdown-mobile {
+      max-height:220px; opacity:1; margin-top:12px;
+    }
+    .lang-switcher-mobile .lang-option-m {
+      display:flex; align-items:center; gap:10px;
+      width:100%;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px; padding:10px 16px;
+      color:var(--muted); font-family:inherit;
+      font-size:.82rem; font-weight:600;
+      cursor:pointer; transition:.25s;
     }
     .lang-switcher-mobile .lang-option-m:hover { color:var(--light); }
     .lang-switcher-mobile .lang-option-m.active {
@@ -770,9 +787,22 @@
       color:#fff; border-color:transparent;
       box-shadow:0 3px 10px rgba(108,99,255,.35);
     }
+    .mobile-quote-btn {
+      flex:1 1 45%; min-width:0;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      background:#25d366; color:#fff !important;
+      border:none; border-radius:50px;
+      padding:10px 10px; text-align:center;
+      font-family:inherit; font-size:.72rem; font-weight:700;
+      line-height:1.25; cursor:pointer; text-decoration:none;
+      transition:.25s;
+    }
+    .mobile-quote-btn:hover { background:#1ebe5d; color:#fff !important; transform:translateY(-2px); }
+    .mobile-quote-btn i { font-size:.9rem; flex-shrink:0; color:#fff; }
+    .mobile-quote-btn span { color:#fff; }
     @media(max-width:900px) {
       .lang-switcher { display:none; }
-      .lang-switcher-mobile { display:flex; }
+      .mobile-top-row { display:flex; }
     }
   </style>
 </head>
@@ -783,10 +813,22 @@
   <div class="nav-inner">
     <a href="#inicio" class="logo">Mahjoub.click<span>.</span></a>
     <ul class="nav-links" id="navLinks">
-      <li class="lang-switcher-mobile" id="langSwitcherMobile">
-        <button data-set-lang="es" class="lang-option-m active" type="button"><span class="lang-flag">🇪🇸</span> ES</button>
-        <button data-set-lang="fr" class="lang-option-m" type="button"><span class="lang-flag">🇫🇷</span> FR</button>
-        <button data-set-lang="en" class="lang-option-m" type="button"><span class="lang-flag">🇬🇧</span> EN</button>
+      <li class="mobile-top-row" id="mobileTopRow">
+        <div class="lang-switcher-mobile" id="langSwitcherMobile">
+          <button type="button" class="lang-current-mobile" id="langCurrentBtnMobile" aria-haspopup="true" aria-expanded="false">
+            <span class="lang-flag" id="langCurrentFlagMobile">🇪🇸</span>
+            <span id="langCurrentCodeMobile">ES</span>
+            <i class="fas fa-chevron-down lang-caret"></i>
+          </button>
+          <div class="lang-dropdown-mobile" id="langDropdownMobile" role="menu">
+            <button data-set-lang="es" class="lang-option-m active" type="button" role="menuitem"><span class="lang-flag">🇪🇸</span> Español</button>
+            <button data-set-lang="fr" class="lang-option-m" type="button" role="menuitem"><span class="lang-flag">🇫🇷</span> Français</button>
+            <button data-set-lang="en" class="lang-option-m" type="button" role="menuitem"><span class="lang-flag">🇬🇧</span> English</button>
+          </div>
+        </div>
+        <a href="https://wa.me/212690157092" class="mobile-quote-btn" id="mobileQuoteBtn" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> <span data-i18n="nav_cta">Solicitar presupuesto</span>
+        </a>
       </li>
       <li><a href="#inicio" data-i18n="nav_inicio">Inicio</a></li>
       <li><a href="#servicios" data-i18n="nav_servicios">Servicios</a></li>
@@ -2273,6 +2315,10 @@ function applyI18n() {
   const curCodeEl = document.getElementById('langCurrentCode');
   if (curFlagEl) curFlagEl.textContent = LANG_FLAGS[currentLang] || '🌐';
   if (curCodeEl) curCodeEl.textContent = currentLang.toUpperCase();
+  const curFlagElMobile = document.getElementById('langCurrentFlagMobile');
+  const curCodeElMobile = document.getElementById('langCurrentCodeMobile');
+  if (curFlagElMobile) curFlagElMobile.textContent = LANG_FLAGS[currentLang] || '🌐';
+  if (curCodeElMobile) curCodeElMobile.textContent = currentLang.toUpperCase();
 }
 
 // Handle language switch clicks (delegated)
@@ -2281,6 +2327,7 @@ document.addEventListener('click', (e) => {
   if (!btn) return;
   const lang = btn.getAttribute('data-set-lang');
   const switcherEl = document.getElementById('langSwitcher');
+  const switcherElMobile = document.getElementById('langSwitcherMobile');
   if (lang && I18N[lang] && lang !== currentLang) {
     currentLang = lang;
     try { localStorage.setItem('mahjoub_lang', lang); } catch(_) {}
@@ -2293,14 +2340,19 @@ document.addEventListener('click', (e) => {
     const toggleBtn = document.getElementById('langCurrentBtn');
     if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
   }
-  // If selected from the mobile menu, close the mobile menu too
+  // If selected from the mobile menu, close its dropdown and the mobile menu too
   if (btn.classList.contains('lang-option-m')) {
+    if (switcherElMobile) {
+      switcherElMobile.classList.remove('open');
+      const toggleBtnMobile = document.getElementById('langCurrentBtnMobile');
+      if (toggleBtnMobile) toggleBtnMobile.setAttribute('aria-expanded', 'false');
+    }
     const mobileNav = document.getElementById('navLinks');
     if (mobileNav) mobileNav.classList.remove('open');
   }
 });
 
-// Handle dropdown open/close
+// Handle dropdown open/close (desktop)
 document.addEventListener('click', (e) => {
   const switcherEl = document.getElementById('langSwitcher');
   const toggleBtn = document.getElementById('langCurrentBtn');
@@ -2315,6 +2367,24 @@ document.addEventListener('click', (e) => {
   if (!switcherEl.contains(e.target)) {
     switcherEl.classList.remove('open');
     toggleBtn.setAttribute('aria-expanded', 'false');
+  }
+});
+
+// Handle dropdown open/close (mobile)
+document.addEventListener('click', (e) => {
+  const switcherElMobile = document.getElementById('langSwitcherMobile');
+  const toggleBtnMobile = document.getElementById('langCurrentBtnMobile');
+  if (!switcherElMobile || !toggleBtnMobile) return;
+  if (toggleBtnMobile.contains(e.target)) {
+    e.stopPropagation();
+    const willOpen = !switcherElMobile.classList.contains('open');
+    switcherElMobile.classList.toggle('open', willOpen);
+    toggleBtnMobile.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    return;
+  }
+  if (!switcherElMobile.contains(e.target)) {
+    switcherElMobile.classList.remove('open');
+    toggleBtnMobile.setAttribute('aria-expanded', 'false');
   }
 });
 
@@ -2365,6 +2435,13 @@ const navLinksEl = document.getElementById('navLinks');
 if (hamburger && navLinksEl) {
   hamburger.addEventListener('click', () => {
     navLinksEl.classList.toggle('open');
+  });
+}
+// Close mobile menu after tapping the mobile quote button
+const mobileQuoteBtn = document.getElementById('mobileQuoteBtn');
+if (mobileQuoteBtn && navLinksEl) {
+  mobileQuoteBtn.addEventListener('click', () => {
+    navLinksEl.classList.remove('open');
   });
 }
 
