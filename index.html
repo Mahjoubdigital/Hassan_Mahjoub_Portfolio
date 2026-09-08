@@ -737,16 +737,16 @@
       z-index:99;
     }
 
-    /* Top row inside mobile menu: languages + quote button, side by side */
+    /* Top row inside mobile menu: languages */
     .mobile-top-row {
       display:none;
       order:-1;
-      align-items:flex-start; gap:10px;
+      align-items:flex-start;
       padding-bottom:16px; margin-bottom:6px;
       border-bottom:1px solid rgba(255,255,255,.08);
     }
     .lang-switcher-mobile {
-      flex:1 1 55%; min-width:0;
+      width:100%; min-width:0;
       display:flex; flex-direction:column;
     }
     .lang-current-mobile {
@@ -754,9 +754,9 @@
       width:100%;
       background:rgba(108,99,255,.1);
       border:1px solid rgba(108,99,255,.25);
-      border-radius:50px; padding:10px 12px;
+      border-radius:50px; padding:10px 16px;
       color:var(--light); font-family:inherit;
-      font-size:.82rem; font-weight:600;
+      font-size:.85rem; font-weight:600;
       cursor:pointer; transition:.25s;
     }
     .lang-current-mobile:hover { border-color:rgba(108,99,255,.5); background:rgba(108,99,255,.18); }
@@ -787,22 +787,25 @@
       color:#fff; border-color:transparent;
       box-shadow:0 3px 10px rgba(108,99,255,.35);
     }
+    /* Quote button at the bottom of the mobile menu */
+    .mobile-quote-row { display:none; }
     .mobile-quote-btn {
-      flex:1 1 45%; min-width:0;
-      display:flex; align-items:center; justify-content:center; gap:6px;
+      display:flex; align-items:center; justify-content:center; gap:8px;
+      width:100%;
       background:#25d366; color:#fff !important;
       border:none; border-radius:50px;
-      padding:10px 10px; text-align:center;
-      font-family:inherit; font-size:.72rem; font-weight:700;
-      line-height:1.25; cursor:pointer; text-decoration:none;
+      padding:13px 16px; text-align:center;
+      font-family:inherit; font-size:.85rem; font-weight:700;
+      cursor:pointer; text-decoration:none;
       transition:.25s;
     }
     .mobile-quote-btn:hover { background:#1ebe5d; color:#fff !important; transform:translateY(-2px); }
-    .mobile-quote-btn i { font-size:.9rem; flex-shrink:0; color:#fff; }
+    .mobile-quote-btn i { font-size:1rem; flex-shrink:0; color:#fff; }
     .mobile-quote-btn span { color:#fff; }
     @media(max-width:900px) {
       .lang-switcher { display:none; }
       .mobile-top-row { display:flex; }
+      .mobile-quote-row { display:block; margin-top:6px; padding-top:16px; border-top:1px solid rgba(255,255,255,.08); }
     }
   </style>
 </head>
@@ -826,15 +829,17 @@
             <button data-set-lang="en" class="lang-option-m" type="button" role="menuitem"><span class="lang-flag">🇬🇧</span> English</button>
           </div>
         </div>
-        <a href="https://wa.me/212690157092" class="mobile-quote-btn" id="mobileQuoteBtn" target="_blank" rel="noopener">
-          <i class="fab fa-whatsapp"></i> <span data-i18n="nav_cta">Solicitar presupuesto</span>
-        </a>
       </li>
       <li><a href="#inicio" data-i18n="nav_inicio">Inicio</a></li>
       <li><a href="#servicios" data-i18n="nav_servicios">Servicios</a></li>
       <li><a href="#catalogo" data-i18n="nav_catalogo">Catálogo</a></li>
       <li><a href="#precios" data-i18n="nav_precios">Precios</a></li>
       <li><a href="#contacto" data-i18n="nav_contacto">Contacto</a></li>
+      <li class="mobile-quote-row">
+        <a href="https://wa.me/212690157092" class="mobile-quote-btn" id="mobileQuoteBtn" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> <span data-i18n="nav_cta">Solicitar presupuesto</span>
+        </a>
+      </li>
     </ul>
     <div class="nav-cta-wrap">
       <div class="lang-switcher" id="langSwitcher">
