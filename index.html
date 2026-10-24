@@ -758,7 +758,7 @@ function renderPricing(){
   const plans = d.plans;
   document.getElementById('pricingGrid').innerHTML = plans.map((p,i) => {
     const featured = i === 1;
-    const price = i === 0 ? '$FREE' : (i === 1 ? '$29' : '$2999');
+    const price = i === 0 ? 'FREE€' : (i === 1 ? '29€' : '2999€');
     const feats = d.planFeats.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('');
     const ctaClass = featured ? 'btn-primary' : 'btn-outline';
     const ctaStyle = featured ? 'width:100%;display:block;text-align:center;border-radius:12px;padding:13px;background:#fff;color:var(--primary);' : 'width:100%;display:block;text-align:center;border-radius:12px;padding:13px;';
