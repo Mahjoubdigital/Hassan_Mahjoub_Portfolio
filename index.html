@@ -192,10 +192,10 @@
     /* MODAL */
     .modal-backdrop { position:fixed; inset:0; background:rgba(8,8,18,.7); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; z-index:500; padding:26px; opacity:0; transition:opacity .3s; }
     .modal-backdrop.show { display:flex; opacity:1; }
-    .modal { background:var(--card); border:1px solid var(--border); border-radius:24px; max-width:900px; width:100%; max-height:90vh; overflow-y:auto; display:grid; grid-template-columns:1fr 1.15fr; position:relative; transform:scale(.92); transition:transform .3s; box-shadow:0 30px 80px rgba(0,0,0,.5); }
+    .modal { background:var(--card); border:1px solid var(--border); border-radius:24px; max-width:900px; width:100%; max-height:92vh; overflow-y:auto; display:grid; grid-template-columns:1fr 1.15fr; align-items:stretch; position:relative; transform:scale(.92); transition:transform .3s; box-shadow:0 30px 80px rgba(0,0,0,.5); }
     .modal-backdrop.show .modal { transform:scale(1); }
-    .modal-img-wrap { position:relative; background:#000; }
-    .modal-img-wrap img { width:100%; height:100%; object-fit:cover; }
+    .modal-img-wrap { position:relative; background:var(--bg-alt); min-height:520px; display:flex; align-items:center; justify-content:center; }
+    .modal-img-wrap img { width:100%; height:100%; min-height:520px; object-fit:contain; display:block; }
     .modal-close { position:absolute; top:12px; inset-inline-end:12px; width:38px; height:38px; border-radius:50%; background:rgba(13,13,25,.8); border:none; color:#fff; font-size:.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .3s, transform .3s; z-index:3; }
     .modal-close:hover { background:var(--primary); transform:rotate(90deg); }
     .modal-body { padding:34px 30px; }
@@ -323,8 +323,9 @@
       .catalog-grid { grid-template-columns:repeat(2,1fr); }
       .testimonials-grid { grid-template-columns:1fr; }
       .contact-wrap { grid-template-columns:1fr; }
-      .modal { grid-template-columns:1fr; }
-      .modal-img-wrap { max-height:200px; }
+      .modal { grid-template-columns:1fr; max-height:94vh; }
+      .modal-img-wrap { min-height:0; height:auto; background:var(--bg-alt); }
+      .modal-img-wrap img { width:100%; height:auto; min-height:0; max-height:60vh; object-fit:contain; border-radius:24px 24px 0 0; padding:6px; }
       .modal-body { padding:26px 22px; }
     }
     @media(max-width:520px) {
@@ -480,7 +481,7 @@
 </section>
 
 <footer>
-  <p data-i18n="footText">© 2026 Mahjoub.click · Diseñador Web WordPress & SEO LOcal · contact@mahjoub.click</p>
+  <p data-i18n="footText">© 2026 Mahjoub.click · Diseñador Web WordPress & SEO Local · contact@mahjoub.click</p>
 </footer>
 
 <!-- MODAL -->
