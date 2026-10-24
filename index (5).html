@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hassan Mahjoub – Diseñador Web WordPress & SEO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary:#6c63ff; --primary-dark:#4f46e5; --accent:#ff6584;
+      --bg:#ffffff; --bg-alt:#f4f5fb; --card:#ffffff;
+      --heading:#12121a; --text:#3a3a4a; --muted:#70708a;
+      --border:rgba(20,20,45,.09); --shadow:0 12px 40px rgba(20,20,60,.08);
+      --nav-bg:rgba(255,255,255,.85); --chip-bg:rgba(108,99,255,.1);
+      --overlay:rgba(13,13,25,.82);
+    }
+    body.dark {
+      --primary:#7d75ff; --primary-dark:#5b52f0; --accent:#ff6584;
+      --bg:#0d0d0d; --bg-alt:#141414; --card:#1e1e2e;
+      --heading:#ffffff; --text:#e0e0e0; --muted:#9090a0;
+      --border:rgba(255,255,255,.08); --shadow:0 20px 50px rgba(0,0,0,.45);
+      --nav-bg:rgba(13,13,13,.9); --chip-bg:rgba(125,117,255,.14);
+      --overlay:rgba(13,13,25,.85);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Poppins', sans-serif; background:var(--bg); color:var(--text);
+      overflow-x:hidden; transition:background .35s, color .35s;
+    }
+    html[dir="rtl"] body { font-family:'Cairo','Poppins',sans-serif; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position:fixed; top:0; width:100%; background:var(--nav-bg);
+      backdrop-filter:blur(14px); border-bottom:1px solid var(--border);
+      z-index:100; padding:14px 0; transition:all .3s;
+    }
+    nav.scrolled { padding:10px 0; box-shadow:var(--shadow); }
+    .nav-inner {
+      max-width:1240px; margin:0 auto; display:flex; align-items:center;
+      justify-content:space-between; padding:0 26px; gap:14px;
+    }
+    .logo { font-size:1.35rem; font-weight:800; color:var(--heading); text-decoration:none; white-space:nowrap; }
+    .logo span { color:var(--primary); }
+    .nav-links { display:flex; gap:22px; list-style:none; align-items:center; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:.88rem; font-weight:500; transition:color .3s; position:relative; white-space:nowrap; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
+    .nav-links a:hover, .nav-links a.active { color:var(--heading); }
+    .nav-links a:hover::after, .nav-links a.active::after { width:100%; }
+    .nav-tools { display:flex; align-items:center; gap:8px; }
+
+    .nav-wa {
+      display:inline-flex; align-items:center; gap:8px; background:#25d366; color:#fff !important;
+      padding:9px 18px; border-radius:50px; font-size:.82rem; font-weight:600;
+      text-decoration:none; transition:background .3s, transform .3s; white-space:nowrap;
+    }
+    .nav-wa:hover { background:#1ebe5d; transform:translateY(-2px); }
+
+    /* language */
+    .lang { position:relative; }
+    .lang-btn {
+      display:inline-flex; align-items:center; gap:7px; background:transparent;
+      border:1px solid var(--border); border-radius:50px; padding:6px 11px;
+      cursor:pointer; color:var(--heading); font-family:inherit; font-size:.78rem; font-weight:600;
+    }
+    .lang-btn:hover { background:var(--chip-bg); }
+    .lang-menu {
+      position:absolute; top:120%; inset-inline-end:0; background:var(--card);
+      border:1px solid var(--border); border-radius:12px; padding:6px;
+      display:none; flex-direction:column; gap:2px; min-width:160px;
+      box-shadow:var(--shadow); z-index:130;
+    }
+    .lang-menu.show { display:flex; }
+    .lang-opt {
+      display:flex; align-items:center; gap:9px; padding:8px 10px; border-radius:8px;
+      cursor:pointer; font-size:.85rem; color:var(--text); background:none;
+      border:none; font-family:inherit; text-align:start; width:100%;
+    }
+    .lang-opt:hover { background:var(--chip-bg); }
+    .lang-opt.active { color:var(--primary); font-weight:600; }
+    .flag { width:22px; height:15px; border-radius:2px; overflow:hidden; flex-shrink:0; display:inline-block; box-shadow:0 0 0 1px rgba(0,0,0,.06); }
+
+    .icon-btn {
+      width:38px; height:38px; border-radius:50%; border:1px solid var(--border);
+      background:transparent; color:var(--heading); cursor:pointer; font-size:.95rem;
+      display:flex; align-items:center; justify-content:center; transition:all .3s;
+    }
+    .icon-btn:hover { background:var(--chip-bg); color:var(--primary); }
+
+    .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+    .hamburger span { width:24px; height:2px; background:var(--heading); transition:.3s; border-radius:2px; }
+
+    /* ===== HERO ===== */
+    #inicio { min-height:100vh; display:flex; align-items:center; position:relative; overflow:hidden; padding:120px 26px 60px; }
+    .hero-bg { position:absolute; inset:0;
+      background: radial-gradient(ellipse at 72% 42%, rgba(108,99,255,.14) 0%, transparent 60%),
+                  radial-gradient(ellipse at 18% 82%, rgba(255,101,132,.09) 0%, transparent 50%); }
+    .hero-grid { max-width:1200px; margin:0 auto; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; position:relative; }
+    .hero-title { font-size:clamp(2.1rem, 5vw, 3.7rem); font-weight:800; line-height:1.12; color:var(--heading); margin-bottom:14px; }
+    .hero-title .highlight { background:linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .hero-code { display:inline-block; background:var(--chip-bg); border:1px solid var(--border); border-radius:8px; padding:4px 14px; font-family:monospace; font-size:1.05rem; color:var(--primary); margin:10px 0 18px; }
+    .hero-desc { color:var(--muted); line-height:1.7; margin-bottom:30px; max-width:470px; }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+    .btn-primary {
+      padding:14px 32px; border-radius:50px; background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#fff; font-weight:600; text-decoration:none; border:none; cursor:pointer; font-family:inherit;
+      transition:transform .3s, box-shadow .3s; box-shadow:0 8px 25px rgba(108,99,255,.35);
+    }
+    .btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 35px rgba(108,99,255,.5); }
+    .btn-outline {
+      padding:14px 32px; border-radius:50px; background:transparent; color:var(--heading);
+      border:1px solid var(--border); font-weight:600; text-decoration:none; cursor:pointer;
+      font-family:inherit; transition:all .3s;
+    }
+    .btn-outline:hover { background:var(--chip-bg); }
+
+    .hero-visual { position:relative; display:flex; align-items:center; justify-content:center; }
+    .hero-visual-card { width:100%; max-width:500px; border-radius:28px; overflow:hidden; position:relative; box-shadow:var(--shadow); border:1px solid var(--border); }
+    .hero-visual-card img { width:100%; height:420px; object-fit:cover; display:block; }
+    .hero-visual-overlay { position:absolute; inset:0; background:linear-gradient(to top, rgba(13,13,25,.55) 0%, transparent 55%); }
+    .info-badge { position:absolute; background:var(--card); border:1px solid var(--border); border-radius:14px; padding:11px 16px; display:flex; align-items:center; gap:10px; box-shadow:var(--shadow); backdrop-filter:blur(10px); }
+    .badge-exp { bottom:20px; left:-18px; }
+    .badge-proj { top:20px; right:-18px; }
+    html[dir="rtl"] .badge-exp { left:auto; right:-18px; }
+    html[dir="rtl"] .badge-proj { right:auto; left:-18px; }
+    .badge-num { font-size:1.35rem; font-weight:800; color:var(--primary); }
+    .badge-text { font-size:.7rem; color:var(--muted); line-height:1.3; }
+
+    .tag-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+    .tag { padding:4px 14px; border-radius:50px; background:var(--chip-bg); border:1px solid var(--border); font-size:.75rem; color:var(--primary); font-weight:500; }
+
+    /* ===== STATS ===== */
+    .stats-section { background:var(--bg-alt); border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:50px 26px; }
+    .stats-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:30px; text-align:center; }
+    .stat-num { font-size:2.7rem; font-weight:900; background:linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+    .stat-label { color:var(--muted); font-size:.85rem; margin-top:4px; }
+
+    section { padding:96px 26px; }
+    .section-header { text-align:center; margin-bottom:56px; }
+    .section-tag { display:inline-block; padding:6px 20px; border-radius:50px; background:var(--chip-bg); border:1px solid var(--border); color:var(--primary); font-size:.78rem; font-weight:600; margin-bottom:14px; text-transform:uppercase; letter-spacing:2px; }
+    .section-title { font-size:clamp(1.8rem, 3vw, 2.7rem); font-weight:800; color:var(--heading); line-height:1.2; }
+    .section-sub { color:var(--muted); margin-top:12px; max-width:540px; margin-left:auto; margin-right:auto; }
+
+    /* SERVICES */
+    #servicios { background:var(--bg); }
+    .services-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .service-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:34px 28px; transition:transform .3s, box-shadow .3s, border-color .3s; }
+    .service-card:hover { transform:translateY(-8px); border-color:rgba(108,99,255,.4); box-shadow:var(--shadow); }
+    .service-icon { width:54px; height:54px; border-radius:16px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); display:flex; align-items:center; justify-content:center; font-size:1.35rem; color:#fff; margin-bottom:18px; box-shadow:0 8px 20px rgba(108,99,255,.3); }
+    .service-title { font-size:1.08rem; font-weight:700; color:var(--heading); margin-bottom:10px; }
+    .service-desc { color:var(--muted); font-size:.87rem; line-height:1.7; }
+    .service-link { display:inline-flex; align-items:center; gap:6px; margin-top:16px; color:var(--primary); font-size:.84rem; font-weight:600; text-decoration:none; transition:gap .3s; }
+    .service-link:hover { gap:12px; }
+
+    /* PRICING */
+    #precios { background:var(--bg-alt); }
+    .pricing-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:start; }
+    .price-card { background:var(--card); border:1px solid var(--border); border-radius:24px; padding:38px 28px; text-align:center; position:relative; transition:transform .3s; }
+    .price-card.featured { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-color:transparent; transform:scale(1.04); box-shadow:0 25px 60px rgba(108,99,255,.4); }
+    .price-card:hover { transform:translateY(-6px); }
+    .price-card.featured:hover { transform:scale(1.04) translateY(-6px); }
+    .price-badge { position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; padding:5px 20px; border-radius:50px; font-size:.72rem; font-weight:700; white-space:nowrap; }
+    .plan-name { font-size:.98rem; font-weight:600; color:var(--muted); margin-bottom:14px; }
+    .price-card.featured .plan-name { color:rgba(255,255,255,.75); }
+    .price-amount { font-size:3rem; font-weight:900; color:var(--heading); line-height:1; }
+    .price-card.featured .price-amount { color:#fff; }
+    .price-period { font-size:.8rem; color:var(--muted); margin-bottom:26px; }
+    .price-card.featured .price-period { color:rgba(255,255,255,.65); }
+    .price-features { list-style:none; text-align:start; margin-bottom:26px; }
+    .price-features li { padding:9px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; font-size:.86rem; color:var(--muted); }
+    .price-card.featured .price-features li { color:rgba(255,255,255,.85); border-color:rgba(255,255,255,.12); }
+    .price-features li i { color:var(--primary); font-size:.75rem; }
+    .price-card.featured .price-features li i { color:#fff; }
+    .price-note { font-size:.7rem; color:var(--muted); margin-top:-18px; margin-bottom:18px; }
+
+    /* CATALOG */
+    #catalogo { background:var(--bg); }
+    .catalog-grid { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+    .catalog-card { border-radius:16px; overflow:hidden; position:relative; aspect-ratio:4/3; cursor:pointer; border:1px solid var(--border); }
+    .catalog-img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+    .catalog-card:hover .catalog-img { transform:scale(1.08); }
+    .catalog-overlay { position:absolute; inset:0; background:linear-gradient(to top, var(--overlay) 0%, transparent 62%); display:flex; flex-direction:column; justify-content:flex-end; padding:16px; }
+    .catalog-name { color:#fff; font-weight:700; font-size:.92rem; }
+    .catalog-type { color:#b9b4ff; font-size:.72rem; margin-top:2px; }
+    .catalog-info-btn { position:absolute; top:11px; inset-inline-end:11px; width:32px; height:32px; border-radius:50%; background:rgba(108,99,255,.9); color:#fff; display:flex; align-items:center; justify-content:center; font-size:.75rem; z-index:2; transition:transform .3s, background .3s; }
+    .catalog-card:hover .catalog-info-btn { transform:rotate(90deg); background:var(--primary); }
+
+    /* MODAL */
+    .modal-backdrop { position:fixed; inset:0; background:rgba(8,8,18,.7); backdrop-filter:blur(8px); display:none; align-items:center; justify-content:center; z-index:500; padding:26px; opacity:0; transition:opacity .3s; }
+    .modal-backdrop.show { display:flex; opacity:1; }
+    .modal { background:var(--card); border:1px solid var(--border); border-radius:24px; max-width:900px; width:100%; max-height:90vh; overflow-y:auto; display:grid; grid-template-columns:1fr 1.15fr; position:relative; transform:scale(.92); transition:transform .3s; box-shadow:0 30px 80px rgba(0,0,0,.5); }
+    .modal-backdrop.show .modal { transform:scale(1); }
+    .modal-img-wrap { position:relative; background:#000; }
+    .modal-img-wrap img { width:100%; height:100%; object-fit:cover; }
+    .modal-close { position:absolute; top:12px; inset-inline-end:12px; width:38px; height:38px; border-radius:50%; background:rgba(13,13,25,.8); border:none; color:#fff; font-size:.95rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .3s, transform .3s; z-index:3; }
+    .modal-close:hover { background:var(--primary); transform:rotate(90deg); }
+    .modal-body { padding:34px 30px; }
+    .modal-tag { display:inline-block; padding:4px 14px; border-radius:50px; background:var(--chip-bg); color:var(--primary); font-size:.7rem; font-weight:600; margin-bottom:12px; text-transform:uppercase; letter-spacing:1.5px; }
+    .modal-title { font-size:1.6rem; font-weight:800; color:var(--heading); margin-bottom:10px; line-height:1.2; }
+    .modal-desc { color:var(--muted); line-height:1.65; margin-bottom:20px; font-size:.88rem; }
+    .modal-section-title { font-size:.78rem; font-weight:600; color:var(--heading); margin:16px 0 10px; display:flex; align-items:center; gap:8px; text-transform:uppercase; letter-spacing:1px; }
+    .modal-section-title i { color:var(--primary); }
+    .modal-features { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .modal-features li { display:flex; align-items:flex-start; gap:8px; font-size:.82rem; color:var(--muted); line-height:1.5; }
+    .modal-features li i { color:var(--primary); margin-top:3px; flex-shrink:0; font-size:.68rem; }
+    .modal-cta { display:inline-flex; align-items:center; gap:10px; margin-top:22px; padding:12px 26px; border-radius:50px; background:#25d366; color:#fff; text-decoration:none; font-weight:600; font-size:.86rem; transition:background .3s, transform .3s; }
+    .modal-cta:hover { background:#1ebe5d; transform:translateY(-2px); }
+
+    /* TESTIMONIALS */
+    #recomendacion { background:var(--bg-alt); }
+    .testimonials-grid { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+    .testimonial-card { background:var(--card); border:1px solid var(--border); border-radius:20px; padding:30px; transition:transform .3s, box-shadow .3s; }
+    .testimonial-card:hover { transform:translateY(-6px); box-shadow:var(--shadow); }
+    .stars { color:#f5a623; font-size:.9rem; margin-bottom:14px; }
+    .testimonial-text { color:var(--muted); line-height:1.7; font-size:.88rem; margin-bottom:22px; }
+    .testimonial-author { display:flex; align-items:center; gap:14px; }
+    .author-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--accent)); display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:.95rem; flex-shrink:0; }
+    .author-name { font-weight:700; color:var(--heading); font-size:.92rem; }
+    .author-company { color:var(--muted); font-size:.76rem; }
+
+    /* CONTACT */
+    #contacto { background:var(--bg); }
+    .contact-wrap { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+    .contact-info h3 { font-size:1.7rem; font-weight:800; color:var(--heading); margin-bottom:14px; }
+    .contact-info p { color:var(--muted); line-height:1.7; margin-bottom:32px; }
+    .contact-item { display:flex; align-items:center; gap:15px; padding:16px 0; border-bottom:1px solid var(--border); }
+    .contact-icon { width:44px; height:44px; border-radius:14px; background:var(--chip-bg); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--primary); font-size:1.05rem; flex-shrink:0; }
+    .contact-label { font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; }
+    .contact-val { color:var(--heading); font-weight:600; font-size:.92rem; }
+    .contact-form { display:flex; flex-direction:column; gap:15px; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-group label { font-size:.78rem; color:var(--muted); font-weight:500; }
+    .form-group input, .form-group textarea { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:13px 16px; color:var(--text); font-family:inherit; font-size:.88rem; transition:border-color .3s; }
+    .form-group input:focus, .form-group textarea:focus { outline:none; border-color:var(--primary); }
+    .form-group textarea { min-height:120px; resize:vertical; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:15px; }
+
+    footer { background:var(--bg-alt); border-top:1px solid var(--border); text-align:center; padding:28px; color:var(--muted); font-size:.83rem; }
+    footer a { color:var(--primary); text-decoration:none; }
+
+    /* ===== ASSISTANT ===== */
+    .asst-fab {
+      position:fixed; bottom:26px; inset-inline-end:26px; width:60px; height:60px; padding:0;
+      border-radius:50%; background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-family:inherit; font-weight:600; font-size:.88rem; z-index:200;
+      box-shadow:0 10px 30px rgba(108,99,255,.45); transition:transform .3s, box-shadow .3s;
+    }
+    .asst-fab:hover { transform:translateY(-3px) scale(1.05); box-shadow:0 14px 38px rgba(108,99,255,.6); }
+    .asst-fab i { font-size:1.45rem; }
+    .asst-head-actions { display:flex; gap:6px; }
+    .asst-hbtn { background:rgba(255,255,255,.16); border:none; color:#fff; width:32px; height:32px; border-radius:50%; cursor:pointer; font-size:.85rem; display:flex; align-items:center; justify-content:center; transition:background .25s; }
+    .asst-hbtn:hover { background:rgba(255,255,255,.3); }
+    .qr-wrap { display:flex; flex-direction:column; gap:8px; margin-top:2px; }
+    .qr-btn {
+      display:flex; align-items:center; gap:10px; text-align:start;
+      background:var(--card); border:1px solid var(--primary); color:var(--heading);
+      border-radius:12px; padding:12px 15px; font-family:inherit; font-size:.85rem;
+      font-weight:500; cursor:pointer; transition:background .25s, transform .15s; width:100%;
+    }
+    .qr-btn:hover { background:var(--chip-bg); }
+    .qr-btn:active { transform:scale(.98); }
+    .asst-panel {
+      position:fixed; bottom:26px; inset-inline-end:26px; width:360px; max-width:calc(100vw - 32px);
+      background:var(--card); border:1px solid var(--border); border-radius:22px; overflow:hidden;
+      box-shadow:0 25px 70px rgba(0,0,0,.35); z-index:210; display:none;
+      flex-direction:column; max-height:min(560px, 88vh);
+    }
+    .asst-panel.show { display:flex; }
+    .asst-head { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; padding:16px 18px; display:flex; align-items:center; gap:12px; }
+    .asst-head .av { width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:1rem; flex-shrink:0; }
+    .asst-head-txt { flex:1; }
+    .asst-head-txt b { display:block; font-size:.95rem; }
+    .asst-head-txt small { font-size:.72rem; opacity:.85; }
+
+    .asst-body { padding:16px; overflow-y:auto; flex:1; display:flex; flex-direction:column; gap:10px; background:var(--bg-alt); }
+    .bubble { max-width:85%; padding:10px 14px; border-radius:16px; font-size:.85rem; line-height:1.5; }
+    .bubble.bot { background:var(--card); color:var(--text); border:1px solid var(--border); border-end-start-radius:4px; align-self:flex-start; }
+    .bubble.user { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; border-end-end-radius:4px; align-self:flex-end; }
+    .asst-foot { padding:12px; border-top:1px solid var(--border); background:var(--card); }
+    .asst-input-row { display:flex; gap:8px; }
+    .asst-input-row input { flex:1; background:var(--bg-alt); border:1px solid var(--border); border-radius:50px; padding:11px 16px; color:var(--text); font-family:inherit; font-size:.85rem; }
+    .asst-input-row input:focus { outline:none; border-color:var(--primary); }
+    .asst-send { width:44px; height:44px; border-radius:50%; border:none; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; cursor:pointer; font-size:.95rem; flex-shrink:0; }
+    .asst-send:disabled { opacity:.5; cursor:not-allowed; }
+    .asst-action { display:flex; width:100%; padding:13px; border-radius:12px; border:none; background:#25d366; color:#fff; font-family:inherit; font-weight:600; font-size:.88rem; cursor:pointer; align-items:center; justify-content:center; gap:9px; text-decoration:none; margin-top:4px; }
+    .asst-action:hover { background:#1ebe5d; }
+    .asst-restart { width:100%; margin-top:8px; padding:9px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--muted); font-family:inherit; font-size:.8rem; cursor:pointer; }
+    .asst-body .qr-wrap { margin-top:2px; }
+
+    /* ===== MOBILE ===== */
+    @media(max-width:980px) {
+      .nav-links { display:none; }
+      .nav-wa { display:none; }
+      .hamburger { display:flex; }
+      .hero-grid { grid-template-columns:1fr; }
+      .hero-visual { display:none; }
+      .stats-grid { grid-template-columns:repeat(2,1fr); }
+      .services-grid { grid-template-columns:1fr 1fr; }
+      .pricing-grid { grid-template-columns:1fr; }
+      .price-card.featured { transform:scale(1); }
+      .catalog-grid { grid-template-columns:repeat(2,1fr); }
+      .testimonials-grid { grid-template-columns:1fr; }
+      .contact-wrap { grid-template-columns:1fr; }
+      .modal { grid-template-columns:1fr; }
+      .modal-img-wrap { max-height:200px; }
+      .modal-body { padding:26px 22px; }
+    }
+    @media(max-width:520px) {
+      .services-grid { grid-template-columns:1fr; }
+      .form-row { grid-template-columns:1fr; }
+      .modal-features { grid-template-columns:1fr; }
+      .nav-inner { padding:0 16px; gap:8px; }
+      .logo { font-size:1.15rem; }
+    }
+
+    .reveal { opacity:0; transform:translateY(26px); transition:opacity .7s, transform .7s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#inicio" class="logo">Hassan<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#inicio" data-i18n="navHome">Inicio</a></li>
+      <li><a href="#servicios" data-i18n="navServices">Servicios</a></li>
+      <li><a href="#catalogo" data-i18n="navCatalog">Catálogo</a></li>
+      <li><a href="#catalogo" data-i18n="navPortfolio">Portfolio</a></li>
+      <li><a href="#precios" data-i18n="navPricing">Precios</a></li>
+      <li><a href="#contacto" data-i18n="navContact">Contacto</a></li>
+    </ul>
+    <div class="nav-tools">
+      <!-- Language -->
+      <div class="lang">
+        <button class="lang-btn" id="langBtn" onclick="toggleLang(event)">
+          <span class="flag" id="curFlag"></span>
+          <span id="curLangCode">ES</span>
+          <i class="fas fa-chevron-down" style="font-size:.6rem;"></i>
+        </button>
+        <div class="lang-menu" id="langMenu">
+          <button class="lang-opt" data-lang="es" onclick="setLang('es')"><span class="flag"></span>Español</button>
+          <button class="lang-opt" data-lang="fr" onclick="setLang('fr')"><span class="flag"></span>Français</button>
+          <button class="lang-opt" data-lang="ar" onclick="setLang('ar')"><span class="flag"></span>العربية</button>
+        </div>
+      </div>
+      <!-- Theme -->
+      <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Tema"><i class="fas fa-moon"></i></button>
+      <a href="https://wa.seo-local.click/land/mahjoub" class="nav-wa" target="_blank" data-i18n="navCta">Solicitar presupuesto</a>
+      <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div class="hero-content">
+      <h1 class="hero-title"><span data-i18n="heroT1">Conecta tu negocio</span><br><span class="highlight" data-i18n="heroT2">al mundo digital</span></h1>
+      <div class="hero-code">&lt;code&gt; I build &lt;/code&gt;</div>
+      <p class="hero-desc" data-i18n="heroDesc">Diseñador web especializado en WordPress y SEO Local. Creo sitios rápidos, seguros y visibles en Google para que tu negocio crezca sin complicaciones.</p>
+      <div class="hero-btns">
+        <a href="#servicios" class="btn-primary" data-i18n="heroBtn1">Explora ahora</a>
+        <a href="#contacto" class="btn-outline" data-i18n="heroBtn2">Contactar</a>
+      </div>
+      <div class="tag-row">
+        <span class="tag">WordPress</span><span class="tag">Elementor</span><span class="tag">SEO</span>
+        <span class="tag">Figma</span><span class="tag">Google Ads</span><span class="tag">Analytics</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-card">
+        <img src="cat_barber.jpg" alt="Diseño Web"/>
+        <div class="hero-visual-overlay"></div>
+      </div>
+      <div class="info-badge badge-exp"><div><div class="badge-num">10+</div><div class="badge-text" data-i18n="badgeExp">Años de experiencia</div></div></div>
+      <div class="info-badge badge-proj"><div><div class="badge-num">143</div><div class="badge-text" data-i18n="badgeProj">Proyectos completados</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="reveal"><div class="stat-num" data-target="10">0</div><div class="stat-label" data-i18n="stat1">Años de Experiencia</div></div>
+    <div class="reveal"><div class="stat-num" data-target="143">0</div><div class="stat-label" data-i18n="stat2">Proyectos Completados</div></div>
+    <div class="reveal"><div class="stat-num" data-target="114">0</div><div class="stat-label" data-i18n="stat3">Clientes Felices</div></div>
+    <div class="reveal"><div class="stat-num" data-target="20">0</div><div class="stat-label" data-i18n="stat4">Premios y Reconocimientos</div></div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicios">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="svcTag">Mis Servicios</div>
+    <h2 class="section-title" data-i18n="svcTitle">¿Qué puedo hacer por tu negocio?</h2>
+    <p class="section-sub" data-i18n="svcSub">Soluciones digitales completas para llevar tu empresa al siguiente nivel</p>
+  </div>
+  <div class="services-grid" id="servicesGrid"></div>
+</section>
+
+<!-- PRICING -->
+<section id="precios">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="prTag">Precios</div>
+    <h2 class="section-title" data-i18n="prTitle">Planes que se adaptan a tu presupuesto</h2>
+  </div>
+  <div class="pricing-grid" id="pricingGrid"></div>
+</section>
+
+<!-- CATALOG -->
+<section id="catalogo">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="catTag">Catálogo Web</div>
+    <h2 class="section-title" data-i18n="catTitle">Sectores que trabajamos</h2>
+    <p class="section-sub" data-i18n="catSub">Haz clic en cada sector para descubrir qué incluye tu web</p>
+  </div>
+  <div class="catalog-grid" id="catalogGrid"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="recomendacion">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="tesTag">Recomendaciones</div>
+    <h2 class="section-title" data-i18n="tesTitle">Lo que dicen mis clientes</h2>
+  </div>
+  <div class="testimonials-grid" id="testimonialsGrid"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto">
+  <div class="section-header reveal">
+    <div class="section-tag" data-i18n="conTag">Contacto</div>
+    <h2 class="section-title" data-i18n="conTitle">Hablemos de tu proyecto</h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-info reveal">
+      <h3 data-i18n="conH3">Estoy aquí para ayudarte</h3>
+      <p data-i18n="conP">¿Tienes un proyecto en mente? Escríbeme y te respondo lo antes posible. Juntos llevaremos tu negocio al siguiente nivel digital.</p>
+      <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone"></i></div><div><div class="contact-label" data-i18n="conPhone">Teléfono</div><div class="contact-val">+212 690 157 092</div></div></div>
+      <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><div class="contact-label">Email</div><div class="contact-val">contact@mahjoub.click</div></div></div>
+      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="btn-primary" style="display:inline-flex; align-items:center; gap:10px; margin-top:26px; background:#25d366; box-shadow:0 8px 25px rgba(37,211,102,.35);" data-i18n="conWa">Solicitar presupuesto</a>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <div class="form-group"><label data-i18n="fName">Nombre</label><input type="text" data-i18n-ph="phName" placeholder="Tu nombre" required/></div>
+          <div class="form-group"><label>Email</label><input type="email" data-i18n-ph="phEmail" placeholder="tu@email.com" required/></div>
+        </div>
+        <div class="form-group"><label data-i18n="fSubject">Asunto</label><input type="text" data-i18n-ph="phSubject" placeholder="¿En qué te puedo ayudar?"/></div>
+        <div class="form-group"><label data-i18n="fMessage">Mensaje</label><textarea data-i18n-ph="phMessage" placeholder="Cuéntame sobre tu proyecto..."></textarea></div>
+        <button type="submit" class="btn-primary" style="border:none; cursor:pointer; font-size:.93rem;"><i class="fas fa-paper-plane" style="margin-inline-end:8px;"></i><span data-i18n="fSend">Enviar Mensaje</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p data-i18n="footText">© 2026 Hassan Mahjoub · Diseñador Web WordPress & SEO · contact@mahjoub.click</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-img-wrap"><img id="modalImg" src="" alt=""/></div>
+    <div class="modal-body">
+      <div class="modal-tag" data-i18n="modalTag">Diseño Web & SEO Local</div>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-section-title"><i class="fas fa-check-circle"></i> <span data-i18n="modalIncludes">Qué incluye tu web</span></div>
+      <ul class="modal-features" id="modalFeatures"></ul>
+      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="modal-cta"><i class="fab fa-whatsapp"></i> <span data-i18n="modalCta">Quiero una web así</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- ASSISTANT -->
+<button class="asst-fab" id="asstFab" onclick="openAssistant()" aria-label="Asistente">
+  <i class="fas fa-robot"></i>
+</button>
+
+<div class="asst-panel" id="asstPanel">
+  <div class="asst-head">
+    <div class="av"><i class="fas fa-robot"></i></div>
+    <div class="asst-head-txt"><b data-i18n="asstTitle">Asistente Virtual</b><small data-i18n="asstSub">En línea</small></div>
+    <div class="asst-head-actions">
+      <button class="asst-hbtn" onclick="startMenu()" title="Reiniciar"><i class="fas fa-rotate-right"></i></button>
+      <button class="asst-hbtn" onclick="closeAssistant()" title="Cerrar"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+  <div class="asst-body" id="asstBody"></div>
+  <div class="asst-foot" id="asstFoot">
+    <div class="asst-input-row">
+      <input id="asstInput" type="text" placeholder="Escribe tu respuesta..." autocomplete="off"/>
+      <button class="asst-send" id="asstSendBtn" aria-label="Enviar"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===================== FLAGS (SVG) ===================== */
+const FLAGS = {
+  es:'<svg viewBox="0 0 24 16" width="22" height="15"><rect width="24" height="16" fill="#c60b1e"/><rect y="4" width="24" height="8" fill="#ffc400"/><rect y="4" width="24" height="2" fill="#c60b1e" opacity="0"/></svg>',
+  fr:'<svg viewBox="0 0 24 16" width="22" height="15"><rect width="8" height="16" fill="#0055a4"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#ef4135"/></svg>',
+  ar:'<svg viewBox="0 0 24 16" width="22" height="15"><rect width="24" height="16" fill="#c1272d"/><path d="M12 4.2l1.15 3.55h3.73l-3.02 2.2 1.15 3.55L12 11.3l-3.01 2.2 1.15-3.55-3.02-2.2h3.73z" fill="none" stroke="#006233" stroke-width="1.1"/></svg>'
+};
+
+/* ===================== TRANSLATIONS ===================== */
+const I18N = {
+  es: {
+    dir:'ltr',
+    navHome:'Inicio', navServices:'Servicios', navCatalog:'Catálogo', navPortfolio:'Portfolio', navPricing:'Precios', navContact:'Contacto', navCta:'Solicitar presupuesto',
+    heroT1:'Conecta tu negocio', heroT2:'al mundo digital',
+    heroDesc:'Diseñador web especializado en WordPress y SEO Local. Creo sitios rápidos, seguros y visibles en Google para que tu negocio crezca sin complicaciones.',
+    heroBtn1:'Explora ahora', heroBtn2:'Contactar',
+    badgeExp:'Años de<br>experiencia', badgeProj:'Proyectos<br>completados',
+    stat1:'Años de Experiencia', stat2:'Proyectos Completados', stat3:'Clientes Felices', stat4:'Premios y Reconocimientos',
+    svcTag:'Mis Servicios', svcTitle:'¿Qué puedo hacer por tu negocio?', svcSub:'Soluciones digitales completas para llevar tu empresa al siguiente nivel', svcLink:'Más información',
+    services:[
+      {icon:'fa-wordpress', t:'Diseño Web en WordPress', d:'Diseño tu web en WordPress rápida, segura y visible en Google. Un sitio atractivo y fácil de usar para que tu negocio crezca sin complicaciones.'},
+      {icon:'fa-map-marker-alt', t:'SEO Local', d:'Te ayudo a aparecer primero en Google Maps y búsquedas locales. Estrategias efectivas para que los clientes de tu zona te encuentren fácilmente.'},
+      {icon:'fa-shield-alt', t:'Mantenimiento Web', d:'Cuido tu web por ti: actualizaciones, seguridad y copias de seguridad. Tú dedícate a tu negocio, yo me encargo de que todo funcione perfecto.'},
+      {icon:'fa-search', t:'Auditoría Web / SEO', d:'Analizo tu web a fondo. Detecto errores de SEO y rendimiento para darte un plan de acción claro que mejore tu visibilidad y ventas.'},
+      {icon:'fa-rocket', t:'Optimización Web', d:'Optimizo tu web técnicamente. Mejoro contenidos y autoridad para escalar posiciones en Google y superar a tu competencia directa.'},
+      {icon:'fa-layer-group', t:'Paquete Integral', d:'Te acompaño en todo: web, diseño y SEO. Una solución completa y personalizada para lanzar tu proyecto digital con éxito y tranquilidad.'}
+    ],
+    prTag:'Precios', prTitle:'Planes que se adaptan a tu presupuesto',
+    plans:[{name:'Starter Price', period:'/ hora*', note:'*Gratis solo al contratar servicios de pago'},{name:'Hourly Payment', period:'/ hora'},{name:'Full Time', period:'/ mes'}],
+    planFeats:['UI Design','Web Development','Logo Design','SEO Optimization','WordPress Integration'], prBadge:'Más Popular', prCta:'Contratar',
+    catTag:'Catálogo Web', catTitle:'Sectores que trabajamos', catSub:'Haz clic en cada sector para descubrir qué incluye tu web', catType:'Diseño web & SEO Local',
+    modalTag:'Diseño Web & SEO Local', modalIncludes:'Qué incluye tu web', modalCta:'Quiero una web así',
+    tesTag:'Recomendaciones', tesTitle:'Lo que dicen mis clientes',
+    tes:[{q:'"El servicio fue excepcional. Desde el primer contacto hasta la entrega final, superaron todas nuestras expectativas. ¡Altamente recomendados!"',n:'Elgazhy H.',c:'Empresa de Mármol'},
+        {q:'"Nuestra compañía ahora tiene un sitio web de última generación que también es increíblemente fácil de navegar. Totalmente satisfechos."',n:'Adil E.',c:'Empresa de Construcción'},
+        {q:'"Tienen un equipo que no solo es extremadamente bien informado, sino que también es muy profesional y rápido para responder a cualquier consulta."',n:'Sofia E.',c:'Industries'}],
+    conTag:'Contacto', conTitle:'Hablemos de tu proyecto', conH3:'Estoy aquí para ayudarte', conP:'¿Tienes un proyecto en mente? Escríbeme y te respondo lo antes posible. Juntos llevaremos tu negocio al siguiente nivel digital.', conPhone:'Teléfono', conWa:'Solicitar presupuesto',
+    fName:'Nombre', fSubject:'Asunto', fMessage:'Mensaje', phName:'Tu nombre', phEmail:'tu@email.com', phSubject:'¿En qué te puedo ayudar?', phMessage:'Cuéntame sobre tu proyecto...', fSend:'Enviar Mensaje',
+    footText:'© 2026 Hassan Mahjoub · Diseñador Web WordPress & SEO · contact@mahjoub.click',
+    asstFab:'Asistente', asstTitle:'Asistente Virtual', asstSub:'En línea',
+    asstGreet:'¡Hola! Soy el asistente virtual de Mahjoub.click. ¿Qué prefieres?',
+    asstOptServices:'Ver servicios', asstOptBudget:'Solicitar presupuesto', asstOptCatalog:'Ver catálogo',
+    asstAskService:'¿Qué servicio te interesa?', asstOptOther:'Otro',
+    asstWhatNext:'¿Quieres hacer algo más?', asstOptAnother:'Solicitar otro presupuesto', asstOptMenu:'Volver al menú',
+    asstAskName:'¿Cuál es tu nombre?', asstAskPhone:'¿Cuál es tu teléfono de contacto?', asstAskMsg:'Cuéntame brevemente qué necesitas:',
+    asstPhDefault:'Escribe tu respuesta...', asstPhMsg:'Ej: una web para mi negocio...',
+    asstSendWa:'Enviar por WhatsApp', asstDone:'¡Gracias! Pulsa el botón para enviar tu solicitud por WhatsApp.', asstRestart:'Empezar de nuevo',
+    msgIntro:'Nueva solicitud desde la web', msgName:'Nombre', msgService:'Servicio', msgPhone:'Teléfono', msgMsg:'Mensaje',
+    sectors:{
+      barber:{n:'Barbería',d:'Web para barberías modernas que convierte visitas en reservas, con tu estilo y catálogo de cortes.',f:['Reservas de cita online','Catálogo de cortes y precios','Galería de trabajos','Ficha Google Maps']},
+      mecanico:{n:'Mecánico',d:'Web para talleres mecánicos que transmite confianza y capta clientes de tu zona.',f:['Presupuesto online','Servicios y precios','Galería antes/después','SEO local']},
+      mudanza:{n:'Mudanza',d:'Web para empresas de mudanzas que genera presupuestos automáticos y llena tu agenda.',f:['Calculadora de presupuesto','Zonas de servicio','Testimonios','Formulario de contacto']},
+      transporte:{n:'Transporte',d:'Web para empresas de transporte y logística con cotizador online y flota profesional.',f:['Cotizador de rutas','Servicios y tarifas','Presentación de flota','Seguimiento de envíos']},
+      construccion:{n:'Construcción',d:'Web para empresas de construcción que muestra tus obras y capta presupuestos.',f:['Portfolio de obras','Solicitud de presupuesto','Servicios detallados','Testimonios']},
+      cafeteria:{n:'Cafetería',d:'Web para cafeterías y restaurantes con carta digital, reservas y pedidos por WhatsApp.',f:['Carta digital','Reservas de mesa','Galería de ambiente','Ubicación en Maps']},
+      salon:{n:'Salón de Belleza',d:'Web para salones de belleza con reserva de citas online y catálogo de servicios.',f:['Reserva de citas','Catálogo de servicios','Galería de estilos','Lista de precios']},
+      arquitecto:{n:'Arquitecto',d:'Web de portfolio elegante para arquitectos que atrae clientes de alto valor.',f:['Portfolio de proyectos','Servicios de estudio','Formulario de contacto','Galería HD']},
+      abogado:{n:'Abogado',d:'Web para despachos de abogados que proyecta autoridad y genera consultas.',f:['Áreas de práctica','Consulta online','Credenciales','Testimonios']},
+      spa:{n:'Spa y Masaje',d:'Web para spas y centros de masaje con reservas online y tratamientos.',f:['Reservas online','Carta de tratamientos','Galería relajante','Bonos regalo']},
+      dentista:{n:'Dentista',d:'Web para clínicas dentales que inspira confianza y facilita la reserva de citas.',f:['Cita online','Tratamientos','Equipo médico','Antes y después']},
+      limpieza:{n:'Limpieza',d:'Web para empresas de limpieza con presupuesto instantáneo y cobertura de zonas.',f:['Presupuesto instantáneo','Servicios','Zonas de cobertura','Testimonios']},
+      comida:{n:'Comida Rápida',d:'Web para locales de comida rápida con menú digital, pedidos y delivery.',f:['Menú digital','Pedidos online','Delivery integrado','Ubicación en Maps']}
+    }
+  },
+  fr: {
+    dir:'ltr',
+    navHome:'Accueil', navServices:'Services', navCatalog:'Catalogue', navPortfolio:'Portfolio', navPricing:'Tarifs', navContact:'Contact', navCta:'Demander un devis',
+    heroT1:'Connectez votre entreprise', heroT2:'au monde digital',
+    heroDesc:'Développeur web spécialisé en WordPress et SEO local. Je crée des sites rapides, sécurisés et visibles sur Google pour que votre entreprise grandisse sans complications.',
+    heroBtn1:'Explorer maintenant', heroBtn2:'Contacter',
+    badgeExp:"Ans d'<br>expérience", badgeProj:'Projets<br>réalisés',
+    stat1:"Ans d'Expérience", stat2:'Projets Réalisés', stat3:'Clients Satisfaits', stat4:'Prix et Distinctions',
+    svcTag:'Mes Services', svcTitle:'Que puis-je faire pour votre entreprise ?', svcSub:'Des solutions digitales complètes pour faire passer votre entreprise au niveau supérieur', svcLink:"Plus d'informations",
+    services:[
+      {icon:'fa-wordpress', t:'Site Web WordPress', d:'Je conçois votre site WordPress rapide, sécurisé et visible sur Google. Un site attractif et facile à utiliser pour que votre entreprise grandisse sans complications.'},
+      {icon:'fa-map-marker-alt', t:'SEO Local', d:'Je vous aide à apparaître en premier sur Google Maps et les recherches locales. Des stratégies efficaces pour que les clients de votre région vous trouvent facilement.'},
+      {icon:'fa-shield-alt', t:'Maintenance Web', d:'Je m’occupe de votre site : mises à jour, sécurité et sauvegardes. Occupez-vous de votre entreprise, je veille à ce que tout fonctionne parfaitement.'},
+      {icon:'fa-search', t:'Audit Web / SEO', d:'J’analyse votre site en profondeur. Je détecte les erreurs SEO et de performance pour vous donner un plan d’action clair qui améliore votre visibilité et vos ventes.'},
+      {icon:'fa-rocket', t:'Optimisation Web', d:'J’optimise votre site techniquement. J’améliore les contenus et l’autorité pour grimper dans Google et dépasser votre concurrence directe.'},
+      {icon:'fa-layer-group', t:'Pack Intégral', d:'Je vous accompagne en tout : web, design et SEO. Une solution complète et personnalisée pour lancer votre projet digital avec succès et sérénité.'}
+    ],
+    prTag:'Tarifs', prTitle:'Des plans adaptés à votre budget',
+    plans:[{name:'Starter', period:'/ heure*', note:'*Gratuit uniquement en souscrivant à des services payants'},{name:'Paiement horaire', period:'/ heure'},{name:'Temps plein', period:'/ mois'}],
+    planFeats:['UI Design','Développement Web','Design de logo','Optimisation SEO','Intégration WordPress'], prBadge:'Le plus populaire', prCta:'Commander',
+    catTag:'Catalogue Web', catTitle:'Secteurs que nous traitons', catSub:'Cliquez sur chaque secteur pour découvrir ce que comprend votre site', catType:'Site web & SEO local',
+    modalTag:'Site web & SEO local', modalIncludes:'Ce que comprend votre site', modalCta:'Je veux un site comme ça',
+    tesTag:'Recommandations', tesTitle:'Ce que disent mes clients',
+    tes:[{q:'"Le service a été exceptionnel. Du premier contact à la livraison finale, ils ont dépassé toutes nos attentes. Hautement recommandés !"',n:'Elgazhy H.',c:'Entreprise de Marbre'},
+        {q:'"Notre société dispose désormais d’un site web de dernière génération, également incroyablement facile à naviguer. Entièrement satisfaits."',n:'Adil E.',c:'Entreprise de Construction'},
+        {q:'"Ils ont une équipe non seulement extrêmement bien informée, mais aussi très professionnelle et rapide à répondre à toute demande."',n:'Sofia E.',c:'Industries'}],
+    conTag:'Contact', conTitle:'Parlons de votre projet', conH3:'Je suis là pour vous aider', conP:'Vous avez un projet en tête ? Écrivez-moi et je vous répondrai dès que possible. Ensemble, nous amènerons votre entreprise au niveau digital supérieur.', conPhone:'Téléphone', conWa:'Demander un devis',
+    fName:'Nom', fSubject:'Sujet', fMessage:'Message', phName:'Votre nom', phEmail:'vous@email.com', phSubject:'Comment puis-je vous aider ?', phMessage:'Parlez-moi de votre projet...', fSend:'Envoyer le message',
+    footText:'© 2026 Hassan Mahjoub · Développeur Web WordPress & SEO · contact@mahjoub.click',
+    asstFab:'Assistant', asstTitle:'Assistant Virtuel', asstSub:'En ligne',
+    asstGreet:'Bonjour ! Je suis l’assistant virtuel de Mahjoub.click. Que préférez-vous ?',
+    asstOptServices:'Voir les services', asstOptBudget:'Demander un devis', asstOptCatalog:'Voir le catalogue',
+    asstAskService:'Quel service vous intéresse ?', asstOptOther:'Autre',
+    asstWhatNext:'Voulez-vous faire autre chose ?', asstOptAnother:'Demander un autre devis', asstOptMenu:'Revenir au menu',
+    asstAskName:'Quel est votre nom ?', asstAskPhone:'Quel est votre téléphone de contact ?', asstAskMsg:'Décrivez brièvement votre besoin :',
+    asstPhDefault:'Écrivez votre réponse...', asstPhMsg:'Ex : un site pour mon entreprise...',
+    asstSendWa:'Envoyer par WhatsApp', asstDone:'Merci ! Appuyez sur le bouton pour envoyer votre demande par WhatsApp.', asstRestart:'Recommencer',
+    msgIntro:'Nouvelle demande depuis le site', msgName:'Nom', msgService:'Service', msgPhone:'Téléphone', msgMsg:'Message',
+    sectors:{
+      barber:{n:'Barbier',d:'Un site pour les barbers modernes qui transforme les visites en réservations, avec votre style et votre catalogue de coupes.',f:['Réservation en ligne','Catalogue et tarifs','Galerie de réalisations','Fiche Google Maps']},
+      mecanico:{n:'Mécanicien',d:'Un site pour les garages qui inspire confiance et capte les clients de votre région.',f:['Devis en ligne','Services et tarifs','Galerie avant/après','SEO local']},
+      mudanza:{n:'Déménagement',d:'Un site pour les entreprises de déménagement qui génère des devis automatiques et remplit votre agenda.',f:['Calculateur de devis','Zones de service','Témoignages','Formulaire de contact']},
+      transporte:{n:'Transport',d:'Un site pour les entreprises de transport et logistique avec devis en ligne et flotte professionnelle.',f:['Devis d’itinéraires','Services et tarifs','Présentation de flotte','Suivi des envois']},
+      construccion:{n:'Construction',d:'Un site pour les entreprises de construction qui présente vos chantiers et capte des devis.',f:['Portfolio de chantiers','Demande de devis','Services détaillés','Témoignages']},
+      cafeteria:{n:'Café',d:'Un site pour cafés et restaurants avec carte digitale, réservations et commandes par WhatsApp.',f:['Carte digitale','Réservation de table','Galerie d’ambiance','Localisation Maps']},
+      salon:{n:'Salon de beauté',d:'Un site pour les salons de beauté avec réservation de rendez-vous en ligne et catalogue de services.',f:['Réservation de RDV','Catalogue de services','Galerie de styles','Liste de tarifs']},
+      arquitecto:{n:'Architecte',d:'Un portfolio élégant pour les architectes qui attire des clients à forte valeur.',f:['Portfolio de projets','Services du studio','Formulaire de contact','Galerie HD']},
+      abogado:{n:'Avocat',d:'Un site pour les cabinets d’avocats qui projette de l’autorité et génère des consultations.',f:['Domaines d’expertise','Consultation en ligne','Références','Témoignages']},
+      spa:{n:'Spa et massage',d:'Un site pour spas et centres de massage avec réservations en ligne et soins.',f:['Réservations en ligne','Carte des soins','Galerie relaxante','Bons cadeaux']},
+      dentista:{n:'Dentiste',d:'Un site pour les cliniques dentaires qui inspire confiance et facilite la prise de rendez-vous.',f:['RDV en ligne','Traitements','Équipe médicale','Avant et après']},
+      limpieza:{n:'Nettoyage',d:'Un site pour les entreprises de nettoyage avec devis instantané et zones de couverture.',f:['Devis instantané','Services','Zones couvertes','Témoignages']},
+      comida:{n:'Restauration rapide',d:'Un site pour les fast-foods avec menu digital, commandes en ligne et livraison.',f:['Menu digital','Commandes en ligne','Livraison intégrée','Localisation Maps']}
+    }
+  },
+  ar: {
+    dir:'rtl',
+    navHome:'الرئيسية', navServices:'الخدمات', navCatalog:'الكتالوج', navPortfolio:'أعمالنا', navPricing:'الأسعار', navContact:'اتصل بنا', navCta:'طلب عرض سعر',
+    heroT1:'اربط عملك', heroT2:'بالعالم الرقمي',
+    heroDesc:'مصمم ويب متخصص في ووردبريس وتحسين محركات البحث المحلي. أصمم مواقع سريعة وآمنة وظاهرة على جوجل لتنمو أعمالك بسهولة.',
+    heroBtn1:'اكتشف الآن', heroBtn2:'تواصل معي',
+    badgeExp:'سنوات من<br>الخبرة', badgeProj:'مشاريع<br>منجزة',
+    stat1:'سنوات الخبرة', stat2:'مشاريع منجزة', stat3:'عملاء سعداء', stat4:'جوائز وتقديرات',
+    svcTag:'خدماتي', svcTitle:'ماذا أقدم لعملك؟', svcSub:'حلول رقمية متكاملة للارتقاء بعملك إلى المستوى التالي', svcLink:'مزيد من المعلومات',
+    services:[
+      {icon:'fa-wordpress', t:'تصميم موقع ووردبريس', d:'أصمم موقعك على ووردبريس بسرعة وأمان وظهور على جوجل. موقع جذاب وسهل الاستخدام لتنمو أعمالك دون تعقيد.'},
+      {icon:'fa-map-marker-alt', t:'السيو المحلي', d:'أساعدك على الظهور أولاً في خرائط جوجل والبحث المحلي. استراتيجيات فعّالة ليجدك عملاء منطقتك بسهولة.'},
+      {icon:'fa-shield-alt', t:'صيانة الموقع', d:'أعتني بموقعك: التحديثات والأمان والنسخ الاحتياطي. تفرّغ لأعمالك وأنا أتأكد من أن كل شيء يعمل بشكل مثالي.'},
+      {icon:'fa-search', t:'تحليل الموقع والسيو', d:'أحلّل موقعك بعمق. أكتشف أخطاء السيو والأداء لأقدم لك خطة عمل واضحة تزيد ظهورك ومبيعاتك.'},
+      {icon:'fa-rocket', t:'تحسين الموقع', d:'أحسّن موقعك تقنياً. أطوّر المحتوى والسلطة لترتقي في جوجل وتتجاوز منافسيك المباشرين.'},
+      {icon:'fa-layer-group', t:'الباقة الشاملة', d:'أرافقك في كل شيء: الموقع والتصميم والسيو. حل متكامل ومخصص لإطلاق مشروعك الرقمي بنجاح واطمئنان.'}
+    ],
+    prTag:'الأسعار', prTitle:'خطط تناسب ميزانيتك',
+    plans:[{name:'الباقة المبتدئة', period:'/ ساعة*', note:'*مجاناً فقط عند طلب خدمات مدفوعة'},{name:'الدفع بالساعة', period:'/ ساعة'},{name:'دوام كامل', period:'/ شهر'}],
+    planFeats:['تصميم الواجهة','تطوير الويب','تصميم الشعار','تحسين محركات البحث','دمج ووردبريس'], prBadge:'الأكثر شيوعاً', prCta:'اطلب الآن',
+    catTag:'كتالوج الويب', catTitle:'القطاعات التي نعمل بها', catSub:'اضغط على كل قطاع لاكتشاف ما يتضمنه موقعك', catType:'موقع ويب وسيو محلي',
+    modalTag:'موقع ويب وسيو محلي', modalIncludes:'ماذا يتضمن موقعك', modalCta:'أريد موقعاً مثل هذا',
+    tesTag:'التوصيات', tesTitle:'ماذا يقول عملائي',
+    tes:[{q:'"كانت الخدمة استثنائية. من أول تواصل حتى التسليم النهائي تجاوزوا كل توقعاتنا. نوصي بهم بشدة!"',n:'Elgazhy H.',c:'شركة الرخام'},
+        {q:'"أصبح لشركتنا الآن موقع حديث وسهل التصفح للغاية. راضون تماماً."',n:'Adil E.',c:'شركة البناء'},
+        {q:'"لديهم فريق واسع المعرفة ومحترف جداً وسريع في الرد على أي استفسار."',n:'Sofia E.',c:'Industries'}],
+    conTag:'اتصل بنا', conTitle:'لنتحدث عن مشروعك', conH3:'أنا هنا لمساعدتك', conP:'لديك مشروع في ذهنك؟ راسلني وسأجيبك في أقرب وقت. معاً سنرتقي بعملك إلى المستوى الرقمي التالي.', conPhone:'الهاتف', conWa:'طلب عرض سعر',
+    fName:'الاسم', fSubject:'الموضوع', fMessage:'الرسالة', phName:'اسمك', phEmail:'بريدك@email.com', phSubject:'كيف يمكنني مساعدتك؟', phMessage:'أخبرني عن مشروعك...', fSend:'إرسال الرسالة',
+    footText:'© 2026 حسن محجوب · مصمم ويب ووردبريس وسيو · contact@mahjoub.click',
+    asstFab:'المساعد', asstTitle:'المساعد الافتراضي', asstSub:'متصل',
+    asstGreet:'مرحباً! أنا المساعد الافتراضي لـ Mahjoub.click. ماذا تفضل؟',
+    asstOptServices:'عرض الخدمات', asstOptBudget:'طلب عرض سعر', asstOptCatalog:'عرض الكتالوج',
+    asstAskService:'أي خدمة تهمك؟', asstOptOther:'أخرى',
+    asstWhatNext:'هل تريد فعل شيء آخر؟', asstOptAnother:'طلب عرض سعر آخر', asstOptMenu:'العودة للقائمة',
+    asstAskName:'ما اسمك؟', asstAskPhone:'ما رقم هاتفك للتواصل؟', asstAskMsg:'أخبرني باختصار بما تحتاجه:',
+    asstPhDefault:'اكتب ردك...', asstPhMsg:'مثال: موقع لعملي...',
+    asstSendWa:'إرسال عبر واتساب', asstDone:'شكراً! اضغط الزر لإرسال طلبك عبر واتساب.', asstRestart:'البدء من جديد',
+    msgIntro:'طلب جديد من الموقع', msgName:'الاسم', msgService:'الخدمة', msgPhone:'الهاتف', msgMsg:'الرسالة',
+    sectors:{
+      barber:{n:'صالون حلاقة',d:'موقع لصالونات الحلاقة الحديثة يحوّل الزيارات إلى حجوزات، بأسلوبك وقائمة قصاتك.',f:['حجز موعد عبر الإنترنت','قائمة القصات والأسعار','معرض الأعمال','بطاقة خرائط جوجل']},
+      mecanico:{n:'ميكانيكي',d:'موقع لورشات الميكانيك يبعث الثقة ويجلب عملاء منطقتك.',f:['عرض سعر عبر الإنترنت','الخدمات والأسعار','معرض قبل/بعد','سيو محلي']},
+      mudanza:{n:'نقل الأثاث',d:'موقع لشركات النقل يولّد عروض أسعار تلقائية ويملأ جدولك.',f:['حاسبة الأسعار','مناطق الخدمة','آراء العملاء','نموذج تواصل']},
+      transporte:{n:'النقل',d:'موقع لشركات النقل واللوجستيك مع حاسبة أسعار وعرض احترافي للأسطول.',f:['حاسبة المسارات','الخدمات والأسعار','عرض الأسطول','تتبع الشحنات']},
+      construccion:{n:'البناء',d:'موقع لشركات البناء يعرض أعمالك ويجلب طلبات الأسعار.',f:['معرض الأعمال','طلب عرض سعر','خدمات مفصلة','آراء العملاء']},
+      cafeteria:{n:'مقهى',d:'موقع للمقاهي والمطاعم بقائمة رقمية وحجوزات وطلبات عبر واتساب.',f:['قائمة رقمية','حجز طاولة','معرض الأجواء','الموقع على الخريطة']},
+      salon:{n:'صالون تجميل',d:'موقع لصالونات التجميل مع حجز المواعيد عبر الإنترنت وقائمة الخدمات.',f:['حجز المواعيد','قائمة الخدمات','معرض الأنماط','قائمة الأسعار']},
+      arquitecto:{n:'مهندس معماري',d:'معرض أنيق للمهندسين المعماريين يجذب عملاء ذوي قيمة عالية.',f:['معرض المشاريع','خدمات المكتب','نموذج تواصل','معرض بدقة عالية']},
+      abogado:{n:'محامي',d:'موقع لمكاتب المحاماة يعكس السلطة ويولّد استشارات.',f:['مجالات الممارسة','استشارة عبر الإنترنت','المؤهلات','آراء العملاء']},
+      spa:{n:'سبا ومساج',d:'موقع للسبا ومراكز المساج مع حجوزات عبر الإنترنت وعلاجات.',f:['حجوزات عبر الإنترنت','قائمة العلاجات','معرض مريح','قسائم هدايا']},
+      dentista:{n:'طبيب أسنان',d:'موقع لعيادات الأسنان يبعث الثقة ويسهّل حجز المواعيد.',f:['حجز موعد','العلاجات','الفريق الطبي','قبل وبعد']},
+      limpieza:{n:'تنظيف',d:'موقع لشركات التنظيف بعرض سعر فوري وتغطية للمناطق.',f:['عرض سعر فوري','الخدمات','مناطق التغطية','آراء العملاء']},
+      comida:{n:'وجبات سريعة',d:'موقع لمطاعم الوجبات السريعة بقائمة رقمية وطلبات وتوصيل.',f:['قائمة رقمية','طلبات عبر الإنترنت','توصيل مدمج','الموقع على الخريطة']}
+    }
+  }
+};
+
+/* ===================== SECTORS (images) ===================== */
+const SECTORS = [
+  {id:'barber',img:'cat_barber.jpg'},{id:'mecanico',img:'cat_mecanico.jpg'},
+  {id:'mudanza',img:'cat_mudanza.jpg'},{id:'transporte',img:'cat_transporte.jpg'},
+  {id:'construccion',img:'cat_construccion.jpg'},{id:'cafeteria',img:'cat_cafeteria.jpg'},
+  {id:'salon',img:'cat_salon.jpg'},{id:'arquitecto',img:'cat_arquitecto.jpg'},
+  {id:'abogado',img:'cat_abogado.jpg'},{id:'spa',img:'cat_spa.jpg'},
+  {id:'dentista',img:'cat_dentista.jpg'},{id:'limpieza',img:'cat_limpieza.jpg'},
+  {id:'comida',img:'cat_comida.jpg'}
+];
+
+const PHONE = '212690157092';
+let lang = localStorage.getItem('lang') || 'es';
+let theme = localStorage.getItem('theme') || 'light';
+let currentSector = null;
+
+/* ===================== THEME ===================== */
+function applyTheme(){
+  document.body.classList.toggle('dark', theme === 'dark');
+  const btn = document.getElementById('themeBtn');
+  btn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+}
+function toggleTheme(){
+  theme = theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('theme', theme);
+  applyTheme();
+}
+
+/* ===================== LANGUAGE ===================== */
+function applyFlags(){
+  document.querySelectorAll('.flag').forEach(f => {
+    const b = f.closest('[data-lang]');
+    const code = b ? b.dataset.lang : (f.id === 'curFlag' ? lang : null);
+    if (code) f.innerHTML = FLAGS[code];
+  });
+  // fallback: fill menu flags directly
+  document.querySelectorAll('.lang-opt').forEach(o => {
+    const fl = o.querySelector('.flag');
+    if (fl) fl.innerHTML = FLAGS[o.dataset.lang];
+  });
+  document.getElementById('curFlag').innerHTML = FLAGS[lang];
+  document.getElementById('curLangCode').textContent = lang.toUpperCase();
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.toggle('active', o.dataset.lang === lang));
+}
+function toggleLang(e){ e.stopPropagation(); document.getElementById('langMenu').classList.toggle('show'); }
+document.addEventListener('click', () => document.getElementById('langMenu').classList.remove('show'));
+
+function setLang(l){
+  lang = l; localStorage.setItem('lang', l);
+  document.getElementById('langMenu').classList.remove('show');
+  renderAll();
+}
+
+function tStatic(){
+  const d = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (d[k] !== undefined) el.innerHTML = d[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.dataset.i18nPh;
+    if (d[k] !== undefined) el.placeholder = d[k];
+  });
+}
+
+function renderServices(){
+  const d = I18N[lang];
+  document.getElementById('servicesGrid').innerHTML = d.services.map(s => `
+    <div class="service-card reveal visible">
+      <div class="service-icon"><i class="fas ${s.icon}"></i></div>
+      <div class="service-title">${s.t}</div>
+      <div class="service-desc">${s.d}</div>
+      <a href="#contacto" class="service-link">${d.svcLink} <i class="fas fa-arrow-right"></i></a>
+    </div>`).join('');
+}
+
+function renderPricing(){
+  const d = I18N[lang];
+  const plans = d.plans;
+  document.getElementById('pricingGrid').innerHTML = plans.map((p,i) => {
+    const featured = i === 1;
+    const price = i === 0 ? '$FREE' : (i === 1 ? '$29' : '$2999');
+    const feats = d.planFeats.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('');
+    const ctaClass = featured ? 'btn-primary' : 'btn-outline';
+    const ctaStyle = featured ? 'width:100%;display:block;text-align:center;border-radius:12px;padding:13px;background:#fff;color:var(--primary);' : 'width:100%;display:block;text-align:center;border-radius:12px;padding:13px;';
+    return `<div class="price-card reveal visible ${featured?'featured':''}">
+      ${featured ? `<div class="price-badge">${d.prBadge}</div>` : ''}
+      <div class="plan-name">${p.name}</div>
+      <div class="price-amount">${price}</div>
+      <div class="price-period">${p.period}</div>
+      ${p.note ? `<p class="price-note">${p.note}</p>` : ''}
+      <ul class="price-features">${feats}</ul>
+      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="${ctaClass}" style="${ctaStyle}">${d.prCta}</a>
+    </div>`;
+  }).join('');
+}
+
+function renderCatalog(){
+  const d = I18N[lang];
+  const grid = document.getElementById('catalogGrid');
+  grid.innerHTML = SECTORS.map(s => {
+    const info = d.sectors[s.id];
+    return `<div class="catalog-card reveal visible" data-id="${s.id}">
+      <img class="catalog-img" src="${s.img}" alt="${info.n}"/>
+      <div class="catalog-info-btn"><i class="fas fa-plus"></i></div>
+      <div class="catalog-overlay">
+        <div class="catalog-name">${info.n}</div>
+        <div class="catalog-type">${d.catType}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderTestimonials(){
+  const d = I18N[lang];
+  document.getElementById('testimonialsGrid').innerHTML = d.tes.map(x => {
+    const ini = x.n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+    return `<div class="testimonial-card reveal visible">
+      <div class="stars">★★★★★</div>
+      <p class="testimonial-text">${x.q}</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">${ini}</div>
+        <div><div class="author-name">${x.n}</div><div class="author-company">${x.c}</div></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAll(){
+  const d = I18N[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = d.dir;
+  tStatic(); applyFlags();
+  renderServices(); renderPricing(); renderCatalog(); renderTestimonials();
+  if (currentSector) { const s = currentSector; currentSector = null; openModal(s, true); }
+  resetAssistant();
+}
+
+/* ===================== MODAL ===================== */
+document.getElementById('catalogGrid').addEventListener('click', e => {
+  const card = e.target.closest('.catalog-card');
+  if (card) openModal(card.dataset.id);
+});
+function openModal(id, keep){
+  const d = I18N[lang];
+  const s = SECTORS.find(x => x.id === id);
+  const info = d.sectors[id];
+  if (!s || !info) return;
+  document.getElementById('modalImg').src = s.img;
+  document.getElementById('modalTitle').textContent = info.n;
+  document.getElementById('modalDesc').textContent = info.d;
+  document.getElementById('modalFeatures').innerHTML = info.f.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('');
+  document.getElementById('modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+  if (!keep) currentSector = null;
+}
+function closeModal(){ document.getElementById('modal').classList.remove('show'); document.body.style.overflow=''; }
+document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+/* ===================== ASSISTANT ===================== */
+let asst = { expect:null, data:{} };
+const asstBody = () => document.getElementById('asstBody');
+
+function openAssistant(){
+  document.getElementById('asstPanel').classList.add('show');
+  document.getElementById('asstFab').style.display = 'none';
+  if (!asstBody().children.length) startMenu();
+}
+function closeAssistant(){
+  document.getElementById('asstPanel').classList.remove('show');
+  document.getElementById('asstFab').style.display = '';
+}
+function resetAssistant(){
+  // language changed: if panel open, restart from menu
+  if (document.getElementById('asstPanel').classList.contains('show')) startMenu();
+  else { asstBody().innerHTML=''; asst = { expect:null, data:{} }; }
+}
+
+function botBubble(text){
+  const body = asstBody();
+  const b = document.createElement('div');
+  b.className = 'bubble bot'; b.textContent = text;
+  body.appendChild(b); body.scrollTop = body.scrollHeight;
+}
+function userBubble(text){
+  const body = asstBody();
+  const b = document.createElement('div');
+  b.className = 'bubble user'; b.textContent = text;
+  body.appendChild(b); body.scrollTop = body.scrollHeight;
+}
+function addQuickReplies(opts){
+  const body = asstBody();
+  const wrap = document.createElement('div');
+  wrap.className = 'qr-wrap';
+  opts.forEach(o => {
+    const btn = document.createElement('button');
+    btn.className = 'qr-btn';
+    btn.textContent = o.label;
+    btn.onclick = () => { wrap.remove(); o.onClick(); };
+    wrap.appendChild(btn);
+  });
+  body.appendChild(wrap); body.scrollTop = body.scrollHeight;
+}
+function setInput(mode){
+  const input = document.getElementById('asstInput');
+  const d = I18N[lang];
+  input.value = '';
+  input.placeholder = mode === 'message' ? d.asstPhMsg : d.asstPhDefault;
+  asst.expect = mode === 'message' ? 'message' : mode;
+}
+
+function startMenu(){
+  const d = I18N[lang];
+  asstBody().innerHTML = '';
+  asst = { expect:null, data:{} };
+  setInput('menu');
+  botBubble(d.asstGreet);
+  addQuickReplies([
+    { label:'🛠 '+d.asstOptServices, onClick:()=>showServiceList() },
+    { label:'📝 '+d.asstOptBudget, onClick:()=>showServiceList() },
+    { label:'💼 '+d.asstOptCatalog, onClick:()=>viewCatalog() }
+  ]);
+}
+
+function showServiceList(){
+  const d = I18N[lang];
+  botBubble(d.asstAskService);
+  const opts = d.services.map(s => ({ label:'› '+s.t, onClick:()=>pickService(s.t) }));
+  opts.push({ label:'› '+d.asstOptOther, onClick:()=>pickService(d.asstOptOther) });
+  addQuickReplies(opts);
+  setInput('menu');
+}
+
+function pickService(name){
+  const d = I18N[lang];
+  userBubble(name);
+  asst.data.service = name;
+  botBubble(d.asstAskName);
+  setInput('name');
+  focusInput();
+}
+
+function viewCatalog(){
+  const d = I18N[lang];
+  userBubble(d.asstOptCatalog);
+  const target = document.getElementById('catalogo');
+  if (target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+  botBubble(d.asstWhatNext);
+  addQuickReplies([
+    { label:'📝 '+d.asstOptAnother, onClick:()=>{ asst.data={}; showServiceList(); } },
+    { label:'🔙 '+d.asstOptMenu, onClick:()=>startMenu() }
+  ]);
+  setInput('menu');
+}
+
+function handleInput(text){
+  const d = I18N[lang];
+  if (asst.expect === 'name'){
+    userBubble(text); asst.data.name = text;
+    botBubble(d.asstAskPhone); setInput('phone'); focusInput();
+  } else if (asst.expect === 'phone'){
+    userBubble(text); asst.data.phone = text;
+    botBubble(d.asstAskMsg); setInput('message'); focusInput();
+  } else if (asst.expect === 'message'){
+    userBubble(text); asst.data.message = text;
+    asst.expect = null; finishAssistant();
+  }
+}
+
+function finishAssistant(){
+  const d = I18N[lang];
+  botBubble(d.asstDone);
+  const lines = [
+    d.msgIntro,
+    d.msgName + ': ' + (asst.data.name || ''),
+    d.msgPhone + ': ' + (asst.data.phone || ''),
+    d.msgService + ': ' + (asst.data.service || ''),
+    d.msgMsg + ': ' + (asst.data.message || '')
+  ];
+  const text = encodeURIComponent(lines.join('\n'));
+  const url = 'https://wa.me/' + PHONE + '?text=' + text;
+  const body = asstBody();
+  const a = document.createElement('a');
+  a.className = 'asst-action'; a.href = url; a.target = '_blank'; a.rel = 'noopener';
+  a.innerHTML = '<i class="fab fa-whatsapp"></i> ' + d.asstSendWa;
+  body.appendChild(a);
+  const r = document.createElement('button');
+  r.className = 'asst-restart'; r.textContent = d.asstRestart;
+  r.onclick = () => startMenu();
+  body.appendChild(r);
+  body.scrollTop = body.scrollHeight;
+}
+
+function focusInput(){ setTimeout(() => document.getElementById('asstInput').focus(), 80); }
+
+// wire persistent input
+(function(){
+  const input = document.getElementById('asstInput');
+  const btn = document.getElementById('asstSendBtn');
+  const submit = () => {
+    const v = input.value.trim();
+    if (!v) return;
+    if (['name','phone','message'].includes(asst.expect)) { input.value=''; handleInput(v); }
+  };
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); submit(); } });
+  btn.addEventListener('click', submit);
+})();
+
+/* ===================== NAV / UI ===================== */
+const sectionsEl = () => document.querySelectorAll('section[id]');
+const navLinkEls = () => document.querySelectorAll('.nav-links a');
+function setActiveLink(){
+  let current = '';
+  sectionsEl().forEach(s => { if (window.scrollY >= s.offsetTop - 130) current = s.id; });
+  navLinkEls().forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+current));
+}
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  setActiveLink();
+});
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior:'smooth', block:'start' }); }
+  });
+});
+
+// counters
+function animateCount(el){
+  const target = +el.dataset.target;
+  const suffix = (target === 10 || target === 20) ? '+' : '';
+  let cur = 0; const step = Math.ceil(target/60);
+  const timer = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur + suffix;
+    if (cur >= target) clearInterval(timer);
+  }, 25);
+}
+const cObs = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { animateCount(e.target); cObs.unobserve(e.target); }
+}), { threshold:0.5 });
+document.querySelectorAll('.stat-num[data-target]').forEach(el => cObs.observe(el));
+
+// reveal
+const rObs = new IntersectionObserver(es => es.forEach((e,i) => {
+  if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i*50);
+}), { threshold:0.1 });
+document.querySelectorAll('.reveal').forEach(el => rObs.observe(el));
+
+// mobile menu
+let menuOpen = false;
+function toggleMenu(){
+  const links = document.querySelector('.nav-links');
+  menuOpen = !menuOpen;
+  if (menuOpen){
+    Object.assign(links.style, {display:'flex', flexDirection:'column', position:'absolute', top:'58px', left:'0', right:'0', background:'var(--card)', padding:'18px 26px', gap:'14px', borderBottom:'1px solid var(--border)', zIndex:'99'});
+  } else { links.style.display = 'none'; }
+}
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+  menuOpen = false; document.querySelector('.nav-links').style.display = '';
+}));
+
+// form
+function submitForm(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  const original = btn.innerHTML;
+  btn.innerHTML = '✓ ' + I18N[lang].fSend;
+  btn.style.background = '#10b981';
+  setTimeout(() => { btn.innerHTML = original; btn.style.background = ''; e.target.reset(); }, 2500);
+}
+
+/* ===================== INIT ===================== */
+applyTheme();
+renderAll();
+</script>
+</body>
+</html>
