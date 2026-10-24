@@ -158,6 +158,8 @@
     #precios { background:var(--bg-alt); }
     .pricing-grid { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:22px; align-items:start; }
     .price-card { background:var(--card); border:1px solid var(--border); border-radius:24px; padding:38px 28px; text-align:center; position:relative; transition:transform .3s; }
+    .price-icon { width:60px; height:60px; border-radius:18px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin:0 auto 16px; box-shadow:0 10px 24px rgba(108,99,255,.3); }
+    .price-sub { font-size:.82rem; color:var(--muted); margin-bottom:22px; line-height:1.5; min-height:38px; }
     .price-card.featured { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-color:transparent; transform:scale(1.04); box-shadow:0 25px 60px rgba(108,99,255,.4); }
     .price-card:hover { transform:translateY(-6px); }
     .price-card.featured:hover { transform:scale(1.04) translateY(-6px); }
@@ -207,6 +209,23 @@
     .modal-features li i { color:var(--primary); margin-top:3px; flex-shrink:0; font-size:.68rem; }
     .modal-cta { display:inline-flex; align-items:center; gap:10px; margin-top:22px; padding:12px 26px; border-radius:50px; background:#25d366; color:#fff; text-decoration:none; font-weight:600; font-size:.86rem; transition:background .3s, transform .3s; }
     .modal-cta:hover { background:#1ebe5d; transform:translateY(-2px); }
+
+    /* SERVICE MODAL */
+    .svc-modal { background:var(--card); border:1px solid var(--border); border-radius:24px; max-width:600px; width:100%; max-height:90vh; overflow-y:auto; position:relative; transform:scale(.92); transition:transform .3s; box-shadow:0 30px 80px rgba(0,0,0,.5); padding:36px 32px; }
+    .modal-backdrop.show .svc-modal { transform:scale(1); }
+    .svc-head { display:flex; align-items:center; gap:16px; margin-bottom:18px; padding-inline-end:34px; }
+    .svc-ic { width:60px; height:60px; border-radius:18px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.6rem; flex-shrink:0; box-shadow:0 10px 24px rgba(108,99,255,.35); }
+    .svc-title { font-size:1.45rem; font-weight:800; color:var(--heading); line-height:1.2; }
+    .svc-desc { color:var(--muted); line-height:1.7; font-size:.92rem; margin-bottom:20px; }
+    .svc-sub { font-size:.76rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--heading); margin-bottom:12px; display:flex; gap:8px; align-items:center; }
+    .svc-sub i { color:var(--primary); }
+    .svc-feats { list-style:none; display:grid; gap:9px; margin-bottom:20px; }
+    .svc-feats li { display:flex; gap:10px; font-size:.87rem; color:var(--text); align-items:flex-start; line-height:1.5; }
+    .svc-feats li i { color:#10b981; margin-top:3px; font-size:.8rem; flex-shrink:0; }
+    .svc-ideal { background:var(--chip-bg); border:1px solid var(--border); border-radius:12px; padding:13px 16px; font-size:.85rem; color:var(--text); margin-bottom:22px; line-height:1.5; }
+    .svc-ideal b { color:var(--primary); }
+    .svc-cta { display:inline-flex; align-items:center; gap:9px; padding:13px 28px; border-radius:50px; background:#25d366; color:#fff; text-decoration:none; font-weight:600; font-size:.9rem; transition:background .3s, transform .3s; }
+    .svc-cta:hover { background:#1ebe5d; transform:translateY(-2px); }
 
     /* TESTIMONIALS */
     #recomendacion { background:var(--bg-alt); }
@@ -325,7 +344,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#inicio" class="logo">Mahjoub<span>.click</span></a>
+    <a href="#inicio" class="logo">Hassan<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#inicio" data-i18n="navHome">Inicio</a></li>
       <li><a href="#servicios" data-i18n="navServices">Servicios</a></li>
@@ -461,7 +480,7 @@
 </section>
 
 <footer>
-  <p data-i18n="footText">© 2026 Mahjoub.click · Diseñador Web WordPress & SEO Local· contact@mahjoub.click</p>
+  <p data-i18n="footText">© 2026 Mahjoub.click · Diseñador Web WordPress & SEO LOcal · contact@mahjoub.click</p>
 </footer>
 
 <!-- MODAL -->
@@ -477,6 +496,22 @@
       <ul class="modal-features" id="modalFeatures"></ul>
       <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="modal-cta"><i class="fab fa-whatsapp"></i> <span data-i18n="modalCta">Quiero una web así</span></a>
     </div>
+  </div>
+</div>
+
+<!-- SERVICE MODAL -->
+<div class="modal-backdrop" id="svcModal">
+  <div class="svc-modal">
+    <button class="modal-close" onclick="closeSvc()"><i class="fas fa-times"></i></button>
+    <div class="svc-head">
+      <div class="svc-ic" id="svcIc"><i class="fas fa-layer-group"></i></div>
+      <h3 class="svc-title" id="svcTitle"></h3>
+    </div>
+    <p class="svc-desc" id="svcDesc"></p>
+    <div class="svc-sub"><i class="fas fa-list-check"></i><span data-i18n="svcIncludes">Qué incluye</span></div>
+    <ul class="svc-feats" id="svcFeats"></ul>
+    <div class="svc-ideal" id="svcIdeal"></div>
+    <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="svc-cta"><i class="fab fa-whatsapp"></i> <span data-i18n="svcCta">Solicitar información</span></a>
   </div>
 </div>
 
@@ -530,9 +565,23 @@ const I18N = {
       {icon:'fa-rocket', t:'Optimización Web', d:'Optimizo tu web técnicamente. Mejoro contenidos y autoridad para escalar posiciones en Google y superar a tu competencia directa.'},
       {icon:'fa-layer-group', t:'Paquete Integral', d:'Te acompaño en todo: web, diseño y SEO. Una solución completa y personalizada para lanzar tu proyecto digital con éxito y tranquilidad.'}
     ],
-    prTag:'Precios', prTitle:'Planes que se adaptan a tu presupuesto',
+    prTag:'Planes', prTitle:'Elige el plan ideal para tu negocio',
+    planCards:[
+      {icon:'fa-wordpress', name:'Diseño Web', sub:'Tu web profesional lista para vender', feats:['Diseño a medida y responsive','Web rápida, segura y optimizada','Hasta 8 secciones personalizadas','Formularios, WhatsApp y mapas','SEO básico incluido','Entrega en 2-3 semanas'], cta:'Solicitar presupuesto'},
+      {icon:'fa-map-marker-alt', name:'SEO Local', sub:'Aparece primero en tu zona', feats:['Optimización de Google Business','Palabras clave locales','Optimización on-page','Contenido adaptado a tu zona','Seguimiento de posiciones','Informe mensual de resultados'], cta:'Solicitar presupuesto'},
+      {icon:'fa-shield-alt', name:'Mantenimiento Web', sub:'Tu web siempre segura y actualizada', feats:['Actualizaciones de WordPress','Copias de seguridad automáticas','Seguridad y protección antivirus','Optimización de velocidad','Soporte técnico prioritario','Informe de estado mensual'], cta:'Solicitar presupuesto'}
+    ],
     plans:[{name:'Starter Price', period:'/ hora*', note:'*Gratis solo al contratar servicios de pago'},{name:'Hourly Payment', period:'/ hora'},{name:'Full Time', period:'/ mes'}],
     planFeats:['UI Design','Web Development','Logo Design','SEO Optimization','WordPress Integration'], prBadge:'Más Popular', prCta:'Contratar',
+    svcIncludes:'Qué incluye', svcIdeal:'Ideal para', svcCta:'Solicitar información',
+    svcDetails:{
+      web:{desc:'Creo tu web en WordPress desde cero: diseño a medida, velocidad, seguridad y una estructura pensada para convertir visitas en clientes. Incluye hosting, dominio y puesta en marcha.', f:['Diseño 100% responsive (móvil, tablet y ordenador)','Tema y plugins optimizados para velocidad','Estructura orientada a conversión','Formularios, WhatsApp y mapas integrados','Seguridad, copias y certificado SSL','Formación para que gestiones tu web'], ideal:'Negocios que necesitan una web profesional y fácil de gestionar.'},
+      seo:{desc:'Optimizo tu presencia para que aparezcas en los primeros resultados de Google y en Google Maps cuando buscan tus servicios en tu zona.', f:['Optimización de tu ficha de Google Business','Palabras clave locales','Contenido y metaetiquetas optimizadas','Enlaces y citaciones locales','Seguimiento de posiciones y tráfico','Informe mensual de resultados'], ideal:'Negocios locales que quieren más clientes de su zona.'},
+      maintenance:{desc:'Me encargo del mantenimiento técnico de tu web para que esté siempre actualizada, segura, rápida y sin caídas.', f:['Actualizaciones de WordPress, temas y plugins','Copias de seguridad automáticas','Monitorización de seguridad y malware','Optimización de velocidad','Soporte técnico prioritario','Informe de estado mensual'], ideal:'Quien ya tiene web y quiere olvidarse de los problemas técnicos.'},
+      audit:{desc:'Analizo tu web en profundidad y te entrego un informe claro con los errores de SEO y rendimiento que frenan tus resultados, junto a un plan de acción priorizado.', f:['Auditoría SEO técnica y de contenido','Análisis de velocidad y Core Web Vitals','Revisión de móvil y usabilidad','Análisis de competencia','Informe con capturas y prioridades','Videollamada explicativa'], ideal:'Negocios que tienen web pero no reciben visitas.'},
+      optimization:{desc:'Optimizo técnicamente tu web y mejoro contenidos y autoridad para escalar posiciones en Google y superar a tu competencia.', f:['Mejora de velocidad y rendimiento','Optimización on-page (títulos, H1, enlaces)','Contenido orientado a palabras clave','Enlazado interno estratégico','Mejora de la experiencia de usuario','Seguimiento de posiciones'], ideal:'Webs que ya funcionan pero quieren más tráfico y ventas.'},
+      pack:{desc:'Una solución completa: diseño web, SEO y mantenimiento en un solo servicio. Te acompaño de principio a fin para lanzar y hacer crecer tu proyecto digital.', f:['Diseño web WordPress a medida','SEO local desde el inicio','Mantenimiento y soporte continuo','Optimización y mejoras mensuales','Informes de resultados','Acompañamiento personalizado'], ideal:'Quien quiere delegar todo el área digital en un solo experto.'}
+    },
     catTag:'Catálogo Web', catTitle:'Sectores que trabajamos', catSub:'Haz clic en cada sector para descubrir qué incluye tu web', catType:'Diseño web & SEO Local',
     modalTag:'Diseño Web & SEO Local', modalIncludes:'Qué incluye tu web', modalCta:'Quiero una web así',
     tesTag:'Recomendaciones', tesTitle:'Lo que dicen mis clientes',
@@ -541,7 +590,7 @@ const I18N = {
         {q:'"Tienen un equipo que no solo es extremadamente bien informado, sino que también es muy profesional y rápido para responder a cualquier consulta."',n:'Sofia E.',c:'Industries'}],
     conTag:'Contacto', conTitle:'Hablemos de tu proyecto', conH3:'Estoy aquí para ayudarte', conP:'¿Tienes un proyecto en mente? Escríbeme y te respondo lo antes posible. Juntos llevaremos tu negocio al siguiente nivel digital.', conPhone:'Teléfono', conWa:'Solicitar presupuesto',
     fName:'Nombre', fSubject:'Asunto', fMessage:'Mensaje', phName:'Tu nombre', phEmail:'tu@email.com', phSubject:'¿En qué te puedo ayudar?', phMessage:'Cuéntame sobre tu proyecto...', fSend:'Enviar Mensaje',
-    footText:'© 2026 Mahjoub.click · Diseñador Web WordPress & SEO Local· contact@mahjoub.click',
+    footText:'© 2026 Mahjoub.click · Diseñador Web WordPress & SEO Local · contact@mahjoub.click',
     asstFab:'Asistente', asstTitle:'Asistente Virtual', asstSub:'En línea',
     asstGreet:'¡Hola! Soy el asistente virtual de Mahjoub.click. ¿Qué prefieres?',
     asstOptServices:'Ver servicios', asstOptBudget:'Solicitar presupuesto', asstOptCatalog:'Ver catálogo',
@@ -584,9 +633,23 @@ const I18N = {
       {icon:'fa-rocket', t:'Optimisation Web', d:'J’optimise votre site techniquement. J’améliore les contenus et l’autorité pour grimper dans Google et dépasser votre concurrence directe.'},
       {icon:'fa-layer-group', t:'Pack Intégral', d:'Je vous accompagne en tout : web, design et SEO. Une solution complète et personnalisée pour lancer votre projet digital avec succès et sérénité.'}
     ],
-    prTag:'Tarifs', prTitle:'Des plans adaptés à votre budget',
+    prTag:'Offres', prTitle:"Choisissez l'offre idéale pour votre entreprise",
+    planCards:[
+      {icon:'fa-wordpress', name:"Site Web", sub:"Votre site professionnel prêt à vendre", feats:["Design sur mesure et responsive","Site rapide, sécurisé et optimisé","Jusqu'à 8 sections personnalisées","Formulaires, WhatsApp et cartes","SEO de base inclus","Livraison en 2-3 semaines"], cta:"Demander un devis"},
+      {icon:'fa-map-marker-alt', name:"SEO Local", sub:"Apparaissez en premier dans votre zone", feats:["Optimisation Google Business","Mots-clés locaux","Optimisation on-page","Contenu adapté à votre zone","Suivi des positions","Rapport mensuel des résultats"], cta:"Demander un devis"},
+      {icon:'fa-shield-alt', name:"Maintenance Web", sub:"Votre site toujours sûr et à jour", feats:["Mises à jour WordPress","Sauvegardes automatiques","Sécurité et protection antivirus","Optimisation de la vitesse","Support technique prioritaire","Rapport d'état mensuel"], cta:"Demander un devis"}
+    ],
     plans:[{name:'Starter', period:'/ heure*', note:'*Gratuit uniquement en souscrivant à des services payants'},{name:'Paiement horaire', period:'/ heure'},{name:'Temps plein', period:'/ mois'}],
     planFeats:['UI Design','Développement Web','Design de logo','Optimisation SEO','Intégration WordPress'], prBadge:'Le plus populaire', prCta:'Commander',
+    svcIncludes:'Ce qui est inclus', svcIdeal:'Idéal pour', svcCta:'Demander des informations',
+    svcDetails:{
+      web:{desc:"Je crée votre site WordPress de A à Z : design sur mesure, rapidité, sécurité et structure pensée pour convertir les visites en clients. Hébergement, domaine et mise en ligne inclus.", f:["Design 100% responsive (mobile, tablette, ordinateur)","Thème et extensions optimisés pour la vitesse","Structure orientée conversion","Formulaires, WhatsApp et cartes intégrés","Sécurité, sauvegardes et certificat SSL","Formation pour gérer votre site"], ideal:"Entreprises qui ont besoin d'un site professionnel et facile à gérer."},
+      seo:{desc:"J'optimise votre présence pour apparaître en tête des résultats Google et sur Google Maps quand on cherche vos services dans votre région.", f:["Optimisation de votre fiche Google Business","Mots-clés locaux","Contenu et balises optimisés","Liens et citations locales","Suivi des positions et du trafic","Rapport mensuel des résultats"], ideal:"Commerces locaux qui veulent plus de clients de leur zone."},
+      maintenance:{desc:"Je m'occupe de la maintenance technique de votre site pour qu'il reste à jour, sécurisé, rapide et sans interruption.", f:["Mises à jour WordPress, thèmes et extensions","Sauvegardes automatiques","Surveillance sécurité et malware","Optimisation de la vitesse","Support technique prioritaire","Rapport d'état mensuel"], ideal:"Ceux qui ont déjà un site et veulent oublier les soucis techniques."},
+      audit:{desc:"J'analyse votre site en profondeur et vous remets un rapport clair avec les erreurs SEO et de performance qui freinent vos résultats, avec un plan d'action priorisé.", f:["Audit SEO technique et de contenu","Analyse de vitesse et Core Web Vitals","Vérification mobile et ergonomie","Analyse de la concurrence","Rapport avec captures et priorités","Appel vidéo explicatif"], ideal:"Entreprises qui ont un site mais peu de visites."},
+      optimization:{desc:"J'optimise techniquement votre site et améliore contenus et autorité pour grimper dans Google et dépasser la concurrence.", f:["Amélioration de la vitesse et performance","Optimisation on-page (titres, H1, liens)","Contenu axé sur les mots-clés","Maillage interne stratégique","Amélioration de l'expérience utilisateur","Suivi des positions"], ideal:"Sites qui fonctionnent mais veulent plus de trafic et de ventes."},
+      pack:{desc:"Une solution complète : site web, SEO et maintenance en un seul service. Je vous accompagne du début à la fin pour lancer et faire grandir votre projet digital.", f:["Site WordPress sur mesure","SEO local dès le départ","Maintenance et support continu","Optimisations et améliorations mensuelles","Rapports de résultats","Accompagnement personnalisé"], ideal:"Ceux qui veulent déléguer tout le digital à un seul expert."}
+    },
     catTag:'Catalogue Web', catTitle:'Secteurs que nous traitons', catSub:'Cliquez sur chaque secteur pour découvrir ce que comprend votre site', catType:'Site web & SEO local',
     modalTag:'Site web & SEO local', modalIncludes:'Ce que comprend votre site', modalCta:'Je veux un site comme ça',
     tesTag:'Recommandations', tesTitle:'Ce que disent mes clients',
@@ -595,7 +658,7 @@ const I18N = {
         {q:'"Ils ont une équipe non seulement extrêmement bien informée, mais aussi très professionnelle et rapide à répondre à toute demande."',n:'Sofia E.',c:'Industries'}],
     conTag:'Contact', conTitle:'Parlons de votre projet', conH3:'Je suis là pour vous aider', conP:'Vous avez un projet en tête ? Écrivez-moi et je vous répondrai dès que possible. Ensemble, nous amènerons votre entreprise au niveau digital supérieur.', conPhone:'Téléphone', conWa:'Demander un devis',
     fName:'Nom', fSubject:'Sujet', fMessage:'Message', phName:'Votre nom', phEmail:'vous@email.com', phSubject:'Comment puis-je vous aider ?', phMessage:'Parlez-moi de votre projet...', fSend:'Envoyer le message',
-    footText:'© 2026 Mahjoub.click · Développeur Web WordPress & SEO Local· contact@mahjoub.click',
+    footText:'© 2026 Mahjoub.click · Développeur Web WordPress & SEO Local · contact@mahjoub.click',
     asstFab:'Assistant', asstTitle:'Assistant Virtuel', asstSub:'En ligne',
     asstGreet:'Bonjour ! Je suis l’assistant virtuel de Mahjoub.click. Que préférez-vous ?',
     asstOptServices:'Voir les services', asstOptBudget:'Demander un devis', asstOptCatalog:'Voir le catalogue',
@@ -638,9 +701,23 @@ const I18N = {
       {icon:'fa-rocket', t:'تحسين الموقع', d:'أحسّن موقعك تقنياً. أطوّر المحتوى والسلطة لترتقي في جوجل وتتجاوز منافسيك المباشرين.'},
       {icon:'fa-layer-group', t:'الباقة الشاملة', d:'أرافقك في كل شيء: الموقع والتصميم والسيو. حل متكامل ومخصص لإطلاق مشروعك الرقمي بنجاح واطمئنان.'}
     ],
-    prTag:'الأسعار', prTitle:'خطط تناسب ميزانيتك',
+    prTag:'الخطط', prTitle:'اختر الخطة المثالية لعملك',
+    planCards:[
+      {icon:'fa-wordpress', name:'تصميم الموقع', sub:'موقعك الاحترافي جاهز للبيع', feats:['تصميم مخصص ومتجاوب','موقع سريع وآمن ومحسّن','حتى 8 أقسام مخصصة','نماذج وواتساب وخرائط','سيو أساسي مشمول','التسليم خلال 2-3 أسابيع'], cta:'طلب عرض سعر'},
+      {icon:'fa-map-marker-alt', name:'السيو المحلي', sub:'اظهر أولاً في منطقتك', feats:['تحسين Google Business','كلمات مفتاحية محلية','تحسين داخلي on-page','محتوى مخصص لمنطقتك','تتبع الترتيب','تقرير شهري بالنتائج'], cta:'طلب عرض سعر'},
+      {icon:'fa-shield-alt', name:'صيانة الموقع', sub:'موقعك دائماً آمن ومحدّث', feats:['تحديث ووردبريس','نسخ احتياطي تلقائي','أمان وحماية من الفيروسات','تحسين السرعة','دعم تقني بأولوية','تقرير حالة شهري'], cta:'طلب عرض سعر'}
+    ],
     plans:[{name:'الباقة المبتدئة', period:'/ ساعة*', note:'*مجاناً فقط عند طلب خدمات مدفوعة'},{name:'الدفع بالساعة', period:'/ ساعة'},{name:'دوام كامل', period:'/ شهر'}],
     planFeats:['تصميم الواجهة','تطوير الويب','تصميم الشعار','تحسين محركات البحث','دمج ووردبريس'], prBadge:'الأكثر شيوعاً', prCta:'اطلب الآن',
+    svcIncludes:'ماذا يشمل', svcIdeal:'مناسب لـ', svcCta:'طلب معلومات',
+    svcDetails:{
+      web:{desc:'أصمم موقعك على ووردبريس من الصفر: تصميم مخصص، سرعة، أمان وهيكل يهدف لتحويل الزيارات إلى عملاء. يشمل الاستضافة والدومين والإطلاق.', f:['تصميم متجاوب 100% (جوال، تابلت، كمبيوتر)','قالب وإضافات محسّنة للسرعة','هيكل موجّه للتحويل','نماذج وواتساب وخرائط مدمجة','أمان ونسخ احتياطي وشهادة SSL','تدريب لإدارة موقعك'], ideal:'الشركات التي تحتاج موقعاً احترافياً وسهل الإدارة.'},
+      seo:{desc:'أحسّن حضورك لتظهر في أعلى نتائج جوجل وعلى خرائط جوجل عند البحث عن خدماتك في منطقتك.', f:['تحسين ملفك في Google Business','كلمات مفتاحية محلية','محتوى ووسوم محسّنة','روابط واستشهادات محلية','تتبع الترتيب والزيارات','تقرير شهري بالنتائج'], ideal:'الشركات المحلية التي تريد عملاء أكثر من منطقتها.'},
+      maintenance:{desc:'أتولى الصيانة التقنية لموقعك ليبقى محدّثاً وآمناً وسريعاً دون توقف.', f:['تحديث ووردبريس والقوالب والإضافات','نسخ احتياطي تلقائي','مراقبة الأمان والبرمجيات الضارة','تحسين السرعة','دعم تقني بأولوية','تقرير حالة شهري'], ideal:'من لديه موقع ويريد التخلص من المشاكل التقنية.'},
+      audit:{desc:'أحلّل موقعك بعمق وأسلّمك تقريراً واضحاً بأخطاء السيو والأداء التي تعيق نتائجك، مع خطة عمل مرتبة بالأولوية.', f:['تدقيق سيو تقني ومحتوى','تحليل السرعة وCore Web Vitals','مراجعة الجوال وسهولة الاستخدام','تحليل المنافسين','تقرير بلقطات وأولويات','مكالمة فيديو توضيحية'], ideal:'الشركات التي لديها موقع لكن بلا زيارات.'},
+      optimization:{desc:'أحسّن موقعك تقنياً وأطوّر المحتوى والسلطة للارتقاء في جوجل وتجاوز منافسيك.', f:['تحسين السرعة والأداء','تحسين داخلي (العناوين، H1، الروابط)','محتوى موجّه للكلمات المفتاحية','ربط داخلي استراتيجي','تحسين تجربة المستخدم','تتبع الترتيب'], ideal:'المواقع التي تعمل لكن تريد زيارات ومبيعات أكثر.'},
+      pack:{desc:'حل متكامل: تصميم الموقع والسيو والصيانة في خدمة واحدة. أرافقك من البداية للنهاية لإطلاق مشروعك الرقمي وتنميته.', f:['موقع ووردبريس مخصص','سيو محلي من البداية','صيانة ودعم مستمر','تحسينات شهرية','تقارير النتائج','مرافقة شخصية'], ideal:'من يريد تفويض كل الجانب الرقمي لخبير واحد.'}
+    },
     catTag:'كتالوج الويب', catTitle:'القطاعات التي نعمل بها', catSub:'اضغط على كل قطاع لاكتشاف ما يتضمنه موقعك', catType:'موقع ويب وسيو محلي',
     modalTag:'موقع ويب وسيو محلي', modalIncludes:'ماذا يتضمن موقعك', modalCta:'أريد موقعاً مثل هذا',
     tesTag:'التوصيات', tesTitle:'ماذا يقول عملائي',
@@ -744,32 +821,35 @@ function tStatic(){
 
 function renderServices(){
   const d = I18N[lang];
-  document.getElementById('servicesGrid').innerHTML = d.services.map(s => `
+  document.getElementById('servicesGrid').innerHTML = d.services.map((s, i) => `
     <div class="service-card reveal visible">
       <div class="service-icon"><i class="fas ${s.icon}"></i></div>
       <div class="service-title">${s.t}</div>
       <div class="service-desc">${s.d}</div>
-      <a href="#contacto" class="service-link">${d.svcLink} <i class="fas fa-arrow-right"></i></a>
+      <button class="service-link" style="background:none;border:none;cursor:pointer;padding:0;" onclick="openSvc(SVC_KEYS[${i}])">${d.svcLink} <i class="fas fa-arrow-right"></i></button>
     </div>`).join('');
 }
 
 function renderPricing(){
   const d = I18N[lang];
-  const plans = d.plans;
-  document.getElementById('pricingGrid').innerHTML = plans.map((p,i) => {
+  const cards = d.planCards;
+  document.getElementById('pricingGrid').innerHTML = cards.map((p,i) => {
     const featured = i === 1;
-    const price = i === 0 ? 'FREE€' : (i === 1 ? '29€' : '2999€');
-    const feats = d.planFeats.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('');
+    const feats = p.feats.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('');
     const ctaClass = featured ? 'btn-primary' : 'btn-outline';
-    const ctaStyle = featured ? 'width:100%;display:block;text-align:center;border-radius:12px;padding:13px;background:#fff;color:var(--primary);' : 'width:100%;display:block;text-align:center;border-radius:12px;padding:13px;';
+    const ctaStyle = featured
+      ? 'width:100%;display:block;text-align:center;border-radius:12px;padding:14px;background:#fff;color:var(--primary);font-weight:600;'
+      : 'width:100%;display:block;text-align:center;border-radius:12px;padding:14px;';
+    const icStyle = featured ? 'background:rgba(255,255,255,.22);box-shadow:none;' : '';
+    const nameColor = featured ? '#fff' : 'var(--heading)';
+    const subColor = featured ? 'color:rgba(255,255,255,.82)' : '';
     return `<div class="price-card reveal visible ${featured?'featured':''}">
       ${featured ? `<div class="price-badge">${d.prBadge}</div>` : ''}
-      <div class="plan-name">${p.name}</div>
-      <div class="price-amount">${price}</div>
-      <div class="price-period">${p.period}</div>
-      ${p.note ? `<p class="price-note">${p.note}</p>` : ''}
+      <div class="price-icon" style="${icStyle}"><i class="fas ${p.icon}"></i></div>
+      <div class="plan-name" style="font-size:1.18rem;font-weight:700;color:${nameColor};margin-bottom:6px;">${p.name}</div>
+      <div class="price-sub" style="${subColor}">${p.sub}</div>
       <ul class="price-features">${feats}</ul>
-      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="${ctaClass}" style="${ctaStyle}">${d.prCta}</a>
+      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="${ctaClass}" style="${ctaStyle}">${p.cta}</a>
     </div>`;
   }).join('');
 }
@@ -815,6 +895,25 @@ function renderAll(){
   resetAssistant();
 }
 
+/* ===================== SERVICE MODAL ===================== */
+const SVC_KEYS = ['web','seo','maintenance','audit','optimization','pack'];
+function openSvc(key){
+  const d = I18N[lang];
+  const idx = SVC_KEYS.indexOf(key);
+  const base = d.services[idx];
+  const det = d.svcDetails[key];
+  if (!base || !det) return;
+  document.getElementById('svcIc').innerHTML = '<i class="fas '+base.icon+'"></i>';
+  document.getElementById('svcTitle').textContent = base.t;
+  document.getElementById('svcDesc').textContent = det.desc;
+  document.getElementById('svcFeats').innerHTML = det.f.map(f => '<li><i class="fas fa-check"></i> '+f+'</li>').join('');
+  document.getElementById('svcIdeal').innerHTML = '<b>'+d.svcIdeal+':</b> '+det.ideal;
+  document.getElementById('svcModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeSvc(){ document.getElementById('svcModal').classList.remove('show'); document.body.style.overflow=''; }
+document.getElementById('svcModal').addEventListener('click', e => { if (e.target.id === 'svcModal') closeSvc(); });
+
 /* ===================== MODAL ===================== */
 document.getElementById('catalogGrid').addEventListener('click', e => {
   const card = e.target.closest('.catalog-card');
@@ -835,7 +934,7 @@ function openModal(id, keep){
 }
 function closeModal(){ document.getElementById('modal').classList.remove('show'); document.body.style.overflow=''; }
 document.getElementById('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeSvc(); } });
 
 /* ===================== ASSISTANT ===================== */
 let asst = { expect:null, data:{} };
