@@ -4,6 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Mahjoub.click – Diseñador Web WordPress & SEO Local</title>
+  <link rel="manifest" href="manifest.webmanifest"/>
+  <meta name="theme-color" content="#6c63ff"/>
+  <meta name="description" content="Diseñador web en WordPress y SEO Local. Sitios rápidos, seguros y visibles en Google."/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Mahjoub"/>
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="96x96" href="icons/favicon-96.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
@@ -345,7 +355,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="#inicio" class="logo">Mahjoub<span>.click</span></a>
+    <a href="#inicio" class="logo">Mahjoub.click<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#inicio" data-i18n="navHome">Inicio</a></li>
       <li><a href="#servicios" data-i18n="navServices">Servicios</a></li>
@@ -355,6 +365,7 @@
       <li><a href="#contacto" data-i18n="navContact">Contacto</a></li>
     </ul>
     <div class="nav-tools">
+      <button class="icon-btn" id="installBtn" onclick="installApp()" title="Instalar app" style="display:none;"><i class="fas fa-download"></i></button>
       <!-- Language -->
       <div class="lang">
         <button class="lang-btn" id="langBtn" onclick="toggleLang(event)">
@@ -370,7 +381,7 @@
       </div>
       <!-- Theme -->
       <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Tema"><i class="fas fa-moon"></i></button>
-      <a href="https://wa.seo-local.click/land/mahjoub" class="nav-wa" target="_blank" data-i18n="navCta">Solicitar presupuesto</a>
+      <a href="https://wa.seo-local.click/land/services-marketing-numerique" class="nav-wa" target="_blank" data-i18n="navCta">Solicitar presupuesto</a>
       <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
     </div>
   </div>
@@ -403,16 +414,6 @@
     </div>
   </div>
 </section>
-
-<!-- STATS -->
-<div class="stats-section">
-  <div class="stats-grid">
-    <div class="reveal"><div class="stat-num" data-target="10">0</div><div class="stat-label" data-i18n="stat1">Años de Experiencia</div></div>
-    <div class="reveal"><div class="stat-num" data-target="143">0</div><div class="stat-label" data-i18n="stat2">Proyectos Completados</div></div>
-    <div class="reveal"><div class="stat-num" data-target="114">0</div><div class="stat-label" data-i18n="stat3">Clientes Felices</div></div>
-    <div class="reveal"><div class="stat-num" data-target="20">0</div><div class="stat-label" data-i18n="stat4">Premios y Reconocimientos</div></div>
-  </div>
-</div>
 
 <!-- SERVICES -->
 <section id="servicios">
@@ -464,7 +465,7 @@
       <p data-i18n="conP">¿Tienes un proyecto en mente? Escríbeme y te respondo lo antes posible. Juntos llevaremos tu negocio al siguiente nivel digital.</p>
       <div class="contact-item"><div class="contact-icon"><i class="fas fa-phone"></i></div><div><div class="contact-label" data-i18n="conPhone">Teléfono</div><div class="contact-val">+212 690 157 092</div></div></div>
       <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><div class="contact-label">Email</div><div class="contact-val">contact@mahjoub.click</div></div></div>
-      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="btn-primary" style="display:inline-flex; align-items:center; gap:10px; margin-top:26px; background:#25d366; box-shadow:0 8px 25px rgba(37,211,102,.35);" data-i18n="conWa">Solicitar presupuesto</a>
+      <a href="https://wa.seo-local.click/land/services-marketing-numerique" target="_blank" class="btn-primary" style="display:inline-flex; align-items:center; gap:10px; margin-top:26px; background:#25d366; box-shadow:0 8px 25px rgba(37,211,102,.35);" data-i18n="conWa">Solicitar presupuesto</a>
     </div>
     <div class="reveal">
       <form class="contact-form" onsubmit="submitForm(event)">
@@ -481,7 +482,7 @@
 </section>
 
 <footer>
-  <p data-i18n="footText">© 2026 Mahjoub.click · Diseñador Web WordPress & SEO Local · contact@mahjoub.click</p>
+  <p data-i18n="footText">© 2026 Mahjoub.click – Diseñador Web WordPress & SEO Local · contact@mahjoub.click</p>
 </footer>
 
 <!-- MODAL -->
@@ -495,7 +496,7 @@
       <p class="modal-desc" id="modalDesc"></p>
       <div class="modal-section-title"><i class="fas fa-check-circle"></i> <span data-i18n="modalIncludes">Qué incluye tu web</span></div>
       <ul class="modal-features" id="modalFeatures"></ul>
-      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="modal-cta"><i class="fab fa-whatsapp"></i> <span data-i18n="modalCta">Quiero una web así</span></a>
+      <a href="https://wa.seo-local.click/land/services-marketing-numerique" target="_blank" class="modal-cta"><i class="fab fa-whatsapp"></i> <span data-i18n="modalCta">Quiero una web así</span></a>
     </div>
   </div>
 </div>
@@ -512,7 +513,7 @@
     <div class="svc-sub"><i class="fas fa-list-check"></i><span data-i18n="svcIncludes">Qué incluye</span></div>
     <ul class="svc-feats" id="svcFeats"></ul>
     <div class="svc-ideal" id="svcIdeal"></div>
-    <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="svc-cta"><i class="fab fa-whatsapp"></i> <span data-i18n="svcCta">Solicitar información</span></a>
+    <a href="https://wa.seo-local.click/land/services-marketing-numerique" target="_blank" class="svc-cta"><i class="fab fa-whatsapp"></i> <span data-i18n="svcCta">Solicitar información</span></a>
   </div>
 </div>
 
@@ -591,7 +592,9 @@ const I18N = {
         {q:'"Tienen un equipo que no solo es extremadamente bien informado, sino que también es muy profesional y rápido para responder a cualquier consulta."',n:'Sofia E.',c:'Industries'}],
     conTag:'Contacto', conTitle:'Hablemos de tu proyecto', conH3:'Estoy aquí para ayudarte', conP:'¿Tienes un proyecto en mente? Escríbeme y te respondo lo antes posible. Juntos llevaremos tu negocio al siguiente nivel digital.', conPhone:'Teléfono', conWa:'Solicitar presupuesto',
     fName:'Nombre', fSubject:'Asunto', fMessage:'Mensaje', phName:'Tu nombre', phEmail:'tu@email.com', phSubject:'¿En qué te puedo ayudar?', phMessage:'Cuéntame sobre tu proyecto...', fSend:'Enviar Mensaje',
-    footText:'© 2026 Mahjoub.click · Diseñador Web WordPress & SEO Local · contact@mahjoub.click',
+    footText:'© 2026 Mahjoub.click – Diseñador Web WordPress & SEO Local · contact@mahjoub.click',
+    installHint:'لتثبيت التطبيق: افتح قائمة المتصفح واختر «إضافة إلى الشاشة الرئيسية» أو «تثبيت التطبيق».',
+    installHint:'Para instalar la app: abre el menú del navegador y elige «Añadir a pantalla de inicio» o «Instalar aplicación».',
     asstFab:'Asistente', asstTitle:'Asistente Virtual', asstSub:'En línea',
     asstGreet:'¡Hola! Soy el asistente virtual de Mahjoub.click. ¿Qué prefieres?',
     asstOptServices:'Ver servicios', asstOptBudget:'Solicitar presupuesto', asstOptCatalog:'Ver catálogo',
@@ -660,6 +663,7 @@ const I18N = {
     conTag:'Contact', conTitle:'Parlons de votre projet', conH3:'Je suis là pour vous aider', conP:'Vous avez un projet en tête ? Écrivez-moi et je vous répondrai dès que possible. Ensemble, nous amènerons votre entreprise au niveau digital supérieur.', conPhone:'Téléphone', conWa:'Demander un devis',
     fName:'Nom', fSubject:'Sujet', fMessage:'Message', phName:'Votre nom', phEmail:'vous@email.com', phSubject:'Comment puis-je vous aider ?', phMessage:'Parlez-moi de votre projet...', fSend:'Envoyer le message',
     footText:'© 2026 Mahjoub.click · Développeur Web WordPress & SEO Local · contact@mahjoub.click',
+    installHint:"Pour installer l'app : ouvrez le menu du navigateur et choisissez « Ajouter à l'écran d'accueil » ou « Installer l'application ».",
     asstFab:'Assistant', asstTitle:'Assistant Virtuel', asstSub:'En ligne',
     asstGreet:'Bonjour ! Je suis l’assistant virtuel de Mahjoub.click. Que préférez-vous ?',
     asstOptServices:'Voir les services', asstOptBudget:'Demander un devis', asstOptCatalog:'Voir le catalogue',
@@ -850,7 +854,7 @@ function renderPricing(){
       <div class="plan-name" style="font-size:1.18rem;font-weight:700;color:${nameColor};margin-bottom:6px;">${p.name}</div>
       <div class="price-sub" style="${subColor}">${p.sub}</div>
       <ul class="price-features">${feats}</ul>
-      <a href="https://wa.seo-local.click/land/mahjoub" target="_blank" class="${ctaClass}" style="${ctaStyle}">${p.cta}</a>
+      <a href="https://wa.seo-local.click/land/services-marketing-numerique" target="_blank" class="${ctaClass}" style="${ctaStyle}">${p.cta}</a>
     </div>`;
   }).join('');
 }
@@ -1153,6 +1157,41 @@ function submitForm(e){
 /* ===================== INIT ===================== */
 applyTheme();
 renderAll();
+
+/* ===================== PWA / INSTALL ===================== */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const b = document.getElementById('installBtn');
+  if (b) b.style.display = 'flex';
+});
+function installApp(){
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; document.getElementById('installBtn').style.display='none'; });
+  } else {
+    // iOS / already installed / unsupported
+    alert(I18N[lang].installHint || 'Para instalar: abre el menú del navegador y elige "Añadir a pantalla de inicio".');
+  }
+}
+window.addEventListener('appinstalled', () => {
+  deferredPrompt = null;
+  const b = document.getElementById('installBtn'); if (b) b.style.display = 'none';
+});
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+// keep theme-color in sync
+const _applyTheme = applyTheme;
+applyTheme = function(){
+  _applyTheme();
+  const m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.setAttribute('content', theme === 'dark' ? '#0d0d0d' : '#6c63ff');
+};
+applyTheme();
 </script>
 </body>
 </html>
