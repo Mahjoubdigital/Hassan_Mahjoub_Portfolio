@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hassan Mahjoub – Diseñador Web WordPress & SEO</title>
+  <title>Hassan Mahjoub – Développeur Web WordPress & SEO Local</title>
   <link rel="manifest" href="manifest.webmanifest"/>
   <meta name="theme-color" content="#6c63ff"/>
-  <meta name="description" content="Diseñador web en WordPress y SEO Local. Sitios rápidos, seguros y visibles en Google."/>
+  <meta name="description" content="Développeur web WordPress et SEO local. Des sites rapides, sécurisés et visibles sur Google."/>
   <meta name="mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
@@ -811,7 +811,7 @@ const SECTORS = [
 ];
 
 const PHONE = '212690157092';
-let lang = localStorage.getItem('lang') || 'es';
+let lang = localStorage.getItem('lang_home') || 'fr';
 let theme = localStorage.getItem('theme') || 'light';
 let currentSector = null;
 
@@ -847,7 +847,7 @@ function toggleLang(e){ e.stopPropagation(); document.getElementById('langMenu')
 document.addEventListener('click', () => document.getElementById('langMenu').classList.remove('show'));
 
 function setLang(l){
-  lang = l; localStorage.setItem('lang', l);
+  lang = l; localStorage.setItem('lang_home', l);
   document.getElementById('langMenu').classList.remove('show');
   renderAll();
 }

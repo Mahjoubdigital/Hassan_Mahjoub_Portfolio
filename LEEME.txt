@@ -1,13 +1,5 @@
 PAQUETE COMPLETO — MAHJOUB
-==========================
-- index.html            : web principal (catálogo de 20 sectores)
-- manifest.webmanifest  : web instalable (PWA)
-- sw.js                 : modo offline
-- icons/                : iconos
-- sites/<sector>/       : 11 webs con fotos reales, selector ES/FR/AR y asistente
-
-Las 11 webs incluyen un ASISTENTE flotante (robot) que recoge nombre,
-teléfono, servicio y mensaje, y envía la solicitud por WhatsApp.
-Fotos reales de Wikimedia Commons (créditos en el pie de cada web).
-
-SUBIR A HOSTING HTTPS manteniendo la estructura de carpetas.
+- index.html: web principal (abre en FRANCÉS por defecto; selector ES/FR/AR)
+- sites/<sector>/: 11 webs con fotos reales, selector ES/FR/AR y asistente (ES por defecto)
+- manifest.webmanifest, sw.js, icons/: PWA instalable
+SUBIR A HOSTING HTTPS manteniendo las carpetas.
