@@ -322,13 +322,32 @@
     .asst-restart { width:100%; margin-top:8px; padding:9px; border-radius:12px; border:1px solid var(--border); background:transparent; color:var(--muted); font-family:inherit; font-size:.8rem; cursor:pointer; }
     .asst-body .qr-wrap { margin-top:2px; }
 
+    /* ===== INSTALL FAB ===== */
+    .install-fab {
+      position:fixed; bottom:26px; inset-inline-start:26px; z-index:195;
+      display:none; align-items:center; gap:9px; padding:12px 20px; border-radius:50px;
+      border:none; cursor:pointer; font-family:inherit; font-weight:600; font-size:.85rem;
+      color:#fff; background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      box-shadow:0 10px 26px rgba(108,99,255,.5); transition:transform .3s, box-shadow .3s;
+    }
+    .install-fab:hover { transform:translateY(-3px); box-shadow:0 14px 34px rgba(108,99,255,.65); }
+    .install-fab i { font-size:.95rem; }
+
     /* ===== MOBILE ===== */
     @media(max-width:980px) {
       .nav-links { display:none; }
       .nav-wa { display:none; }
       .hamburger { display:flex; }
       .hero-grid { grid-template-columns:1fr; }
-      .hero-visual { display:none; }
+      .hero-visual { display:flex; order:-1; margin-bottom:2px; }
+      .hero-visual-card { max-width:440px; }
+      .hero-visual-card img { height:232px; }
+      .badge-exp { bottom:10px; left:8px; }
+      .badge-proj { top:10px; right:8px; }
+      html[dir="rtl"] .badge-exp { left:auto; right:8px; }
+      html[dir="rtl"] .badge-proj { right:auto; left:8px; }
+      .badge-num { font-size:1.1rem; }
+      .badge-text { font-size:.62rem; }
       .stats-grid { grid-template-columns:repeat(2,1fr); }
       .services-grid { grid-template-columns:1fr 1fr; }
       .pricing-grid { grid-template-columns:1fr; }
@@ -346,7 +365,7 @@
       .form-row { grid-template-columns:1fr; }
       .modal-features { grid-template-columns:1fr; }
       .nav-inner { padding:0 16px; gap:8px; }
-      .logo { font-size:1.15rem; }
+      .logo { font-size:1.45rem; }
     }
 
     .reveal { opacity:0; transform:translateY(26px); transition:opacity .7s, transform .7s; }
@@ -368,7 +387,6 @@
       <li><a href="#contacto" data-i18n="navContact">Contacto</a></li>
     </ul>
     <div class="nav-tools">
-      <button class="icon-btn" id="installBtn" onclick="installApp()" title="Instalar app" style="display:none;"><i class="fas fa-download"></i></button>
       <!-- Language -->
       <div class="lang">
         <button class="lang-btn" id="langBtn" onclick="toggleLang(event)">
@@ -389,6 +407,9 @@
     </div>
   </div>
 </nav>
+<button class="install-fab" id="installBtn" onclick="installApp()">
+  <i class="fas fa-download"></i> <span data-i18n="installApp">Instalar app</span>
+</button>
 
 <!-- HERO -->
 <section id="inicio">
@@ -599,8 +620,8 @@ const I18N = {
     conTag:'Contacto', conTitle:'Hablemos de tu proyecto', conH3:'Estoy aquí para ayudarte', conP:'¿Tienes un proyecto en mente? Escríbeme y te respondo lo antes posible. Juntos llevaremos tu negocio al siguiente nivel digital.', conPhone:'Teléfono', conWa:'Solicitar presupuesto',
     fName:'Nombre', fSubject:'Asunto', fMessage:'Mensaje', phName:'Tu nombre', phEmail:'tu@email.com', phSubject:'¿En qué te puedo ayudar?', phMessage:'Cuéntame sobre tu proyecto...', fSend:'Enviar Mensaje',
     footText:'© 2026 Hassan Mahjoub · Diseñador Web WordPress & SEO · contact@mahjoub.click',
-    installHint:'لتثبيت التطبيق: افتح قائمة المتصفح واختر «إضافة إلى الشاشة الرئيسية» أو «تثبيت التطبيق».',
-    installHint:'Para instalar la app: abre el menú del navegador y elige «Añadir a pantalla de inicio» o «Instalar aplicación».',
+    installApp:'تثبيت التطبيق', installHint:'لتثبيت التطبيق: افتح قائمة المتصفح واختر «إضافة إلى الشاشة الرئيسية» أو «تثبيت التطبيق».',
+    installApp:'Instalar app', installHint:'Para instalar la app: abre el menú del navegador y elige «Añadir a pantalla de inicio» o «Instalar aplicación».',
     asstFab:'Asistente', asstTitle:'Asistente Virtual', asstSub:'En línea',
     asstGreet:'¡Hola! Soy el asistente virtual de Mahjoub.click. ¿Qué prefieres?',
     asstOptServices:'Ver servicios', asstOptBudget:'Solicitar presupuesto', asstOptCatalog:'Ver catálogo',
@@ -676,7 +697,7 @@ const I18N = {
     conTag:'Contact', conTitle:'Parlons de votre projet', conH3:'Je suis là pour vous aider', conP:'Vous avez un projet en tête ? Écrivez-moi et je vous répondrai dès que possible. Ensemble, nous amènerons votre entreprise au niveau digital supérieur.', conPhone:'Téléphone', conWa:'Demander un devis',
     fName:'Nom', fSubject:'Sujet', fMessage:'Message', phName:'Votre nom', phEmail:'vous@email.com', phSubject:'Comment puis-je vous aider ?', phMessage:'Parlez-moi de votre projet...', fSend:'Envoyer le message',
     footText:'© 2026 Hassan Mahjoub · Développeur Web WordPress & SEO · contact@mahjoub.click',
-    installHint:"Pour installer l'app : ouvrez le menu du navigateur et choisissez « Ajouter à l'écran d'accueil » ou « Installer l'application ».",
+    installApp:"Installer l'app", installHint:"Pour installer l'app : ouvrez le menu du navigateur et choisissez « Ajouter à l'écran d'accueil » ou « Installer l'application ».",
     asstFab:'Assistant', asstTitle:'Assistant Virtuel', asstSub:'En ligne',
     asstGreet:'Bonjour ! Je suis l’assistant virtuel de Mahjoub.click. Que préférez-vous ?',
     asstOptServices:'Voir les services', asstOptBudget:'Demander un devis', asstOptCatalog:'Voir le catalogue',
