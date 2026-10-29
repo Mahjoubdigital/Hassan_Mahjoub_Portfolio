@@ -1,0 +1,14 @@
+PAQUETE COMPLETO — MAHJOUB
+==========================
+- index.html            : web principal (catálogo de 20 sectores)
+- manifest.webmanifest  : hace la web instalable (PWA)
+- sw.js                 : modo offline
+- icons/                : iconos de la app
+- sites/<sector>/       : 11 webs de sector con fotos reales y selector ES/FR/AR
+
+Las 11 webs usan fotos reales de Wikimedia Commons (créditos en el pie de
+cada web). Todas incluyen selector de idioma Español / Français / العربية
+con soporte RTL.
+
+SUBIR A HOSTING CON HTTPS (Netlify, Vercel, GitHub Pages, Cloudflare):
+Sube TODO manteniendo la estructura de carpetas.
